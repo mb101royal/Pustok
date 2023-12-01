@@ -1,28 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using nov30task.Context;
-using nov30task.Models;
-using System.Diagnostics;
 
 namespace nov30task.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        ApplicationDbContext _context { get; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 
         public async Task<IActionResult> Index()
         {
-            using ApplicationDbContext context = new ApplicationDbContext();
-            var sliders = await context.Sliders.ToListAsync();
-
+            var sliders = await _context.Sliders.ToListAsync();
             return View(sliders);
         }
+
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\nov30task\\nov30task.csproj": {}
+    "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\New folder (2)\\nov30task\\nov30task.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\nov30task\\nov30task.csproj": {
+    "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\New folder (2)\\nov30task\\nov30task.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\nov30task\\nov30task.csproj",
+        "projectUniqueName": "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\New folder (2)\\nov30task\\nov30task.csproj",
         "projectName": "nov30task",
-        "projectPath": "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\nov30task\\nov30task.csproj",
+        "projectPath": "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\New folder (2)\\nov30task\\nov30task.csproj",
         "packagesPath": "C:\\Users\\Birinci novbe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\nov30task\\obj\\",
+        "outputPath": "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\New folder (2)\\nov30task\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Birinci novbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -53,6 +53,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.25, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.16, )"
             }
           },
           "imports": [
