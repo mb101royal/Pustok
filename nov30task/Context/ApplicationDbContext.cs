@@ -8,5 +8,6 @@ namespace nov30task.Context
         public ApplicationDbContext(DbContextOptions opt) : base(opt) { }
 
         public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

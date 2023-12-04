@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\nov30task.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\New folder (2)\\nov30task\\wwwroot\\Admin\\css\\sb-admin-2.css",
+      "PackagePath": "staticwebassets\\Admin\\css\\sb-admin-2.css"
+    },
+    {
+      "Id": "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\New folder (2)\\nov30task\\wwwroot\\Admin\\css\\sb-admin-2.min.css",
+      "PackagePath": "staticwebassets\\Admin\\css\\sb-admin-2.min.css"
+    },
+    {
       "Id": "C:\\Users\\Birinci novbe\\source\\repos\\pushable\\New folder (2)\\nov30task\\wwwroot\\Admin\\img\\undraw_posting_photo.svg",
       "PackagePath": "staticwebassets\\Admin\\img\\undraw_posting_photo.svg"
     },
