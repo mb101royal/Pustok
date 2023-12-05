@@ -26,7 +26,6 @@ namespace nov30task.ViewModels.ProductVM
         public float Discount { get; set; }
 
         public ushort Quantity { get; set; }
-        public string ImageUrl { get; set; }
         public int CategoryId { get; set; }
     }
 }

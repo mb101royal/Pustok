@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\royal\\Desktop\\Pustok\\nov30task\\nov30task.csproj": {}
+    "C:\\Users\\Birinci novbe\\Desktop\\CustomPustok\\Pustok\\nov30task\\nov30task.csproj": {}
   },
   "projects": {
-    "C:\\Users\\royal\\Desktop\\Pustok\\nov30task\\nov30task.csproj": {
+    "C:\\Users\\Birinci novbe\\Desktop\\CustomPustok\\Pustok\\nov30task\\nov30task.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\royal\\Desktop\\Pustok\\nov30task\\nov30task.csproj",
+        "projectUniqueName": "C:\\Users\\Birinci novbe\\Desktop\\CustomPustok\\Pustok\\nov30task\\nov30task.csproj",
         "projectName": "nov30task",
-        "projectPath": "C:\\Users\\royal\\Desktop\\Pustok\\nov30task\\nov30task.csproj",
-        "packagesPath": "C:\\Users\\royal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\royal\\Desktop\\Pustok\\nov30task\\obj\\",
+        "projectPath": "C:\\Users\\Birinci novbe\\Desktop\\CustomPustok\\Pustok\\nov30task\\nov30task.csproj",
+        "packagesPath": "C:\\Users\\Birinci novbe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Birinci novbe\\Desktop\\CustomPustok\\Pustok\\nov30task\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\royal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Birinci novbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -82,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

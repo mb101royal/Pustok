@@ -27,7 +27,6 @@ namespace nov30task.Models
         public float Discount { get; set; }
 
         public ushort Quantity { get; set; }
-        public string ImageUrl{ get; set; }
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public bool IsDeleted { get; set; } = false;

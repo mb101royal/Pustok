@@ -4,6 +4,7 @@ using nov30task.Areas.Admin.ViewModels;
 using nov30task.Context;
 using nov30task.Models;
 using nov30task.ViewModels.ProductVM;
+using System.Drawing.Drawing2D;
 
 namespace nov30task.Areas.Admin.Controllers
 {
@@ -27,10 +28,16 @@ namespace nov30task.Areas.Admin.Controllers
 				SellPrice = p.SellPrice,
 				Discount = p.Discount,
 				Category = p.Category,
-				ImageUrl = p.ImageUrl,
 				IsDeleted = p.IsDeleted,
-				Quantity = p.Quantity
-			}));
+				Quantity = p.Quantity,
+				About = p.About,
+                Description = p.Description,
+                ExTax = p.ExTax,
+                Brand = p.Brand,
+                ProductCode = p.ProductCode,
+				RewardPoints = p.RewardPoints,
+				Avability = p.Avability
+            }));
 		}
 
 		public IActionResult Create()
@@ -71,9 +78,11 @@ namespace nov30task.Areas.Admin.Controllers
 				Quantity = vm.Quantity,
 				Description = vm.Description,
 				Discount = vm.Discount,
-				ImageUrl = vm.ImageUrl,
-				CategoryId = vm.CategoryId
-			};
+				CategoryId = vm.CategoryId,
+                ExTax = vm.ExTax,
+                ProductCode = vm.ProductCode,
+                RewardPoints = vm.RewardPoints,
+            };
 
 			await _db.Products.AddAsync(product);
 			await _db.SaveChangesAsync();
