@@ -6,12 +6,12 @@ using nov30task.ViewModels.CategoryVM;
 namespace nov30task.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class CategoriesController : Controller
     {
 
         ApplicationDbContext _db { get; }
 
-        public CategoryController(ApplicationDbContext db)
+        public CategoriesController(ApplicationDbContext db)
         {
             _db = db;
         }

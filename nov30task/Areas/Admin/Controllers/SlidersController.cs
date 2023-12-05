@@ -7,11 +7,11 @@ using nov30task.ViewModels.SliderVM;
 namespace nov30task.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class SliderController : Controller
+    public class SlidersController : Controller
     {
         ApplicationDbContext _db { get; }
 
-        public SliderController(ApplicationDbContext db)
+        public SlidersController(ApplicationDbContext db)
         {
             _db = db;
         }

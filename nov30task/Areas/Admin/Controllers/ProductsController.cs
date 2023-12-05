@@ -9,12 +9,12 @@ using System.Drawing.Drawing2D;
 namespace nov30task.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class ProductController : Controller
+	public class ProductsController : Controller
 	{
 
 		ApplicationDbContext _db { get; }
 
-		public ProductController(ApplicationDbContext db)
+		public ProductsController(ApplicationDbContext db)
 		{
 			_db = db;
 		}
