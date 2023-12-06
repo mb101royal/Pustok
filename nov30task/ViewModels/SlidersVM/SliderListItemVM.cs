@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace nov30task.ViewModels.SliderVM
+namespace nov30task.ViewModels.SlidersVM
 {
     public class SliderListItemVM
     {

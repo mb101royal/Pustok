@@ -42,21 +42,21 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" asp-action="Index" asp-controller="Slider">
+                <a class="nav-link" asp-action="Index" asp-controller="Sliders">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Slider</span>
+                    <span>Sliders</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="Index" asp-controller="Category">
+                <a class="nav-link" asp-action="Index" asp-controller="Categories">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Category</span>
+                    <span>Categories</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="Index" asp-controller="Product">
+                <a class="nav-link" asp-action="Index" asp-controller="Products">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Product</span>
+                    <span>Products</span>
                 </a>
             </li>
             <!-- Divider -->
@@ -172,6 +172,7 @@
     <!-- Custom scripts for all pages-->
     <script src="~/Admin/js/sb-admin-2.min.js"></script>
     @await RenderSectionAsync("scripts", false)
+
 </body>
 
 </html>

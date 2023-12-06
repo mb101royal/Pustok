@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace nov30task.ViewModels.ProductVM
+namespace nov30task.ViewModels.ProductsVM
 {
     public class ProductCreateVM
     {

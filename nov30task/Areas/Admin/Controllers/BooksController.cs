@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using nov30task.Context;
-using nov30task.ViewModels.CategoryVM;
 
 namespace nov30task.Areas.Admin.Controllers
 {

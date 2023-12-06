@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using nov30task.Context;
-using nov30task.ViewModels.CategoryVM;
+using nov30task.ViewModels.CategoriesVM;
 
 namespace nov30task.Areas.Admin.Controllers
 {
@@ -40,6 +40,45 @@ namespace nov30task.Areas.Admin.Controllers
                 return View(vm);
             }
             await _db.Categories.AddAsync(new Models.Category { Name = vm.Name });
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            TempData["CategoryDeletionResponse"] = false;
+            if (id == null) return BadRequest();
+            var data = await _db.Categories.FindAsync(id);
+            if (data == null) return NotFound();
+            _db.Categories.Remove(data);
+            await _db.SaveChangesAsync();
+            TempData["CategoryDeletionResponse"] = true;
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null || id <= 0) return BadRequest();
+            var data = await _db.Categories.FindAsync(id);
+            if (data == null) return NotFound();
+            return View(new CategoryUpdateVM { Name = data.Name });
+        }
+
+        [HttpPost]
+
+        public async Task<IActionResult> Update(int? id, CategoryUpdateVM vm)
+        {
+            TempData["CategoryRenovationResponse"] = false;
+
+            if (id == null || id <= 0) return BadRequest();
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+            var data = await _db.Categories.FindAsync(id);
+            if (data == null) return NotFound();
+            data.Name = vm.Name;
+            TempData["CategoryRenovationResponse"] = true;
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

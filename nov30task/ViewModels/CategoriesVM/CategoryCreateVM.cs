@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace nov30task.ViewModels.CategoryVM
+namespace nov30task.ViewModels.CategoriesVM
 {
     public class CategoryCreateVM
     {

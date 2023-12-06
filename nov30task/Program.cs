@@ -25,7 +25,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "areas",
-    pattern: "{area:exists}/{controller=Slider}/{action=Index}/{id?}"
+    pattern: "{area:exists}/{controller=Sliders}/{action=Index}/{id?}"
 );
 
 app.MapControllerRoute(

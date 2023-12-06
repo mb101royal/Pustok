@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using nov30task.Context;
 using nov30task.Models;
-using nov30task.ViewModels.SliderVM;
+using nov30task.ViewModels.SlidersVM;
 
 namespace nov30task.Areas.Admin.Controllers
 {
@@ -23,8 +23,9 @@ namespace nov30task.Areas.Admin.Controllers
                 Title = s.Title,
                 Text = s.Text,
                 IsLeft = s.IsLeft,
-                ImageUrl = s.ImageUrl,
                 Id = s.Id,
+                ImageUrl = s.ImageUrl,
+                ButtonText = s.ButtonText
             }).ToListAsync();
             return View(items);
         }
@@ -64,13 +65,13 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            TempData["Response"] = false;
+            TempData["SliderDeletionResponse"] = false;
             if (id == null) return BadRequest();
             var data = await _db.Sliders.FindAsync(id);
             if (data == null) return NotFound();
             _db.Sliders.Remove(data);
             await _db.SaveChangesAsync();
-            TempData["Response"] = true;
+            TempData["SliderDeletionResponse"] = true;
             return RedirectToAction(nameof(Index));
         }
 
@@ -96,6 +97,8 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Update(int? id, SliderUpdateVM vm)
         {
+            TempData["SliderRenovationResponse"] = false;
+
             if (id == null || id <= 0) return BadRequest();
             if (vm.Position < -1 || vm.Position > 1)
             {
@@ -116,9 +119,10 @@ namespace nov30task.Areas.Admin.Controllers
                 1 => true
             };
             data.ButtonText = vm.ButtonText;
+            TempData["SliderRenovationResponse"] = true;
             await _db.SaveChangesAsync();
-            TempData["Response"] = true;
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
