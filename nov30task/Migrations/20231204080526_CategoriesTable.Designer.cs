@@ -10,7 +10,7 @@ using nov30task.Context;
 
 namespace nov30task.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(PustokDbContext))]
     [Migration("20231204080526_CategoriesTable")]
     partial class CategoriesTable
     {

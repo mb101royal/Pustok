@@ -9,9 +9,9 @@ namespace nov30task.Areas.Admin.Controllers
     [Area("Admin")]
     public class SlidersController : Controller
     {
-        ApplicationDbContext _db { get; }
+        PustokDbContext _db { get; }
 
-        public SlidersController(ApplicationDbContext db)
+        public SlidersController(PustokDbContext db)
         {
             _db = db;
         }

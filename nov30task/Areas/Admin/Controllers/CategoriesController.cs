@@ -9,9 +9,9 @@ namespace nov30task.Areas.Admin.Controllers
     public class CategoriesController : Controller
     {
 
-        ApplicationDbContext _db { get; }
+        PustokDbContext _db { get; }
 
-        public CategoriesController(ApplicationDbContext db)
+        public CategoriesController(PustokDbContext db)
         {
             _db = db;
         }

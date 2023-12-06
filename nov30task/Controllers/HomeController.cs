@@ -6,9 +6,9 @@ namespace nov30task.Controllers
 {
     public class HomeController : Controller
     {
-        ApplicationDbContext _context { get; }
+        PustokDbContext _context { get; }
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(PustokDbContext context)
         {
             _context = context;
         }
