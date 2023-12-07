@@ -108,6 +108,10 @@ namespace nov30task.Migrations
                     b.Property<decimal>("CostPrice")
                         .HasColumnType("smallmoney");
 
+                    b.Property<string>("CoverImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -116,10 +120,6 @@ namespace nov30task.Migrations
 
                     b.Property<decimal>("ExTax")
                         .HasColumnType("smallmoney");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

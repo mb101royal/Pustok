@@ -39,7 +39,7 @@ namespace nov30task.Areas.Admin.Controllers
                 BookCode = p.BookCode,
 				RewardPoints = p.RewardPoints,
 				Avability = p.Avability,
-                ImageUrl = p.ImageUrl
+                ImageUrl = p.CoverImageUrl
             }));
 		}
 
@@ -86,7 +86,7 @@ namespace nov30task.Areas.Admin.Controllers
 				Avability = vm.Avability,
                 CategoryId = vm.CategoryId,
                 Brand = vm.Brand,
-                ImageUrl = fileName,
+                CoverImageUrl = fileName,
 				Quantity = vm.Quantity,
 				Description = vm.Description,
 				Discount = vm.Discount,
@@ -103,6 +103,7 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Update(int? id)
         {
+
             if (id == null || id <= 0) return BadRequest();
             var data = await _db.Books.FindAsync(id);
             ViewBag.Categories = _db.Categories;
@@ -121,6 +122,7 @@ namespace nov30task.Areas.Admin.Controllers
                 BookCode = data.BookCode,
                 Quantity = data.Quantity,
                 RewardPoints = data.RewardPoints,
+                ImageUrl = data.CoverImageUrl,
                 SellPrice = data.SellPrice
             });
         }
@@ -139,6 +141,13 @@ namespace nov30task.Areas.Admin.Controllers
             var data = await _db.Books.FindAsync(id);
             if (data == null) return NotFound();
 
+            string fileName = Path.Combine("image", "books", vm.ImageFile.FileName);
+
+            using (FileStream fs = System.IO.File.Create(Path.Combine(_webHostEnvironment.WebRootPath, fileName)))
+            {
+                await vm.ImageFile.CopyToAsync(fs);
+            }
+
             data.Name = vm.Name;
             data.About = vm.About;
             data.Avability = vm.Avability;
@@ -152,6 +161,7 @@ namespace nov30task.Areas.Admin.Controllers
             data.RewardPoints = vm.RewardPoints;
             data.SellPrice = vm.SellPrice;
             data.CategoryId = vm.CategoryId;
+            data.CoverImageUrl = fileName;
 
             TempData["BookRenovationResponse"] = true;
             await _db.SaveChangesAsync();

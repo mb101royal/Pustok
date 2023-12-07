@@ -109,6 +109,11 @@
                 </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="ImageFile"></label>
+                <input asp-for="ImageFile" class="form-control">
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
             <button class="btn btn-success">Submit!</button>
         </form>
     </div>

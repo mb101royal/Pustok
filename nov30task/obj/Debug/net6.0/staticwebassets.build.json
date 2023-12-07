@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TNzKAjC0z0oe/ZPt3jBs8SzkfUeyDIiC16gwBRhFJIw=",
+  "Hash": "fEfAcb+lgfgKksNDW2qsG6Vl8EjiWIqSBesyxE+hAhA=",
   "Source": "nov30task",
   "BasePath": "_content/nov30task",
   "Mode": "Default",
@@ -32349,6 +32349,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\bg-images\\promo-banner-with-text-big.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Birinci novbe\\Desktop\\CustomPustok\\Pustok\\nov30task\\wwwroot\\image\\books\\wp8018065.jpg",
+      "SourceId": "nov30task",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Birinci novbe\\Desktop\\CustomPustok\\Pustok\\nov30task\\wwwroot\\",
+      "BasePath": "_content/nov30task",
+      "RelativePath": "image/books/wp8018065.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\books\\wp8018065.jpg"
     },
     {
       "Identity": "C:\\Users\\Birinci novbe\\Desktop\\CustomPustok\\Pustok\\nov30task\\wwwroot\\image\\favicon.ico",

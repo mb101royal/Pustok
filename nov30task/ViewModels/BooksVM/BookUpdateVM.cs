@@ -24,6 +24,8 @@ namespace nov30task.ViewModels.BooksVM
         [Range(0, 100)]
         public float Discount { get; set; }
 
+        public IFormFile ImageFile { get; set; }
+
         public ushort Quantity { get; set; }
         public int CategoryId { get; set; }
     }
