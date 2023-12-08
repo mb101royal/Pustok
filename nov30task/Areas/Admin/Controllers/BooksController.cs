@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using nov30task.Areas.Admin.ViewModels;
 using nov30task.Context;
@@ -51,133 +52,96 @@ namespace nov30task.Areas.Admin.Controllers
 
 		[HttpPost]
 
-        public async Task<IActionResult> Create(BookCreateVM vm)
+        public async Task<IActionResult> Create([Bind("Id,Name,About,Description,ExTax,Brand,BookCode,RewardPoints,Avability,SellPrice,CostPrice,Discount,CoverImageUrl,Quantity,CategoryId,IsDeleted")] Book book)
         {
-
-			if (vm.CostPrice > vm.SellPrice)
+            if (ModelState.IsValid)
             {
-				ModelState.AddModelError("SellPrice", "SellPrice > CostPrice olmalidir.");
+                _db.Add(book);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Categories = _db.Categories;
-                return View(vm);
-            }
-            if (!await _db.Categories.AnyAsync(c => c.Id == vm.CategoryId))
-            {
-                ModelState.AddModelError("CategoryId", "Bele kateqoriya yoxdur.");
-                ViewBag.Categories = _db.Categories;
-                return View(vm);
-            }
-
-            string fileName = Path.Combine("image", "books", vm.ImageFile.FileName);
-
-            using (FileStream fs = System.IO.File.Create(Path.Combine(_webHostEnvironment.WebRootPath, fileName)))
-            {
-                await vm.ImageFile.CopyToAsync(fs);
-            }
-
-            Book book = new Book
-			{
-				Name = vm.Name,
-				About = vm.About,
-				SellPrice = vm.SellPrice,
-				CostPrice = vm.CostPrice,
-				Avability = vm.Avability,
-                CategoryId = vm.CategoryId,
-                Brand = vm.Brand,
-                CoverImageUrl = fileName,
-				Quantity = vm.Quantity,
-				Description = vm.Description,
-				Discount = vm.Discount,
-                ExTax = vm.ExTax,
-                BookCode = vm.BookCode,
-                RewardPoints = vm.RewardPoints,
-            };
-
-			await _db.Books.AddAsync(book);
-			await _db.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
+            ViewData["CategoryId"] = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
+            return View(book);
         }
 
-        public async Task<IActionResult> Update(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
-
-            if (id == null || id <= 0) return BadRequest();
-            var data = await _db.Books.FindAsync(id);
-            ViewBag.Categories = _db.Categories;
-            if (data == null) return NotFound();
-            return View(new BookUpdateVM
+            if (id == null)
             {
-                Name = data.Name,
-                About = data.About,
-                Avability = data.Avability,
-                Brand = data.Brand,
-                CategoryId = data.CategoryId,
-                CostPrice = data.CostPrice,
-                Description = data.Description,
-                Discount = data.Discount,
-                ExTax = data.ExTax,
-                BookCode = data.BookCode,
-                Quantity = data.Quantity,
-                RewardPoints = data.RewardPoints,
-                ImageUrl = data.CoverImageUrl,
-                SellPrice = data.SellPrice
-            });
+                return NotFound();
+            }
+
+            var book = await _db.Books.FindAsync(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            ViewData["CategoryId"] = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
+            return View(book);
         }
 
         [HttpPost]
-
-        public async Task<IActionResult> Update(int? id, BookUpdateVM vm)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,About,Description,ExTax,Brand,BookCode,RewardPoints,Avability,SellPrice,CostPrice,Discount,CoverImageUrl,Quantity,CategoryId,IsDeleted")] Book book)
         {
-            TempData["BookRenovationResponse"] = false;
-
-            if (id == null || id <= 0) return BadRequest();
-            if (!ModelState.IsValid)
+            if (id != book.Id)
             {
-                return View(vm);
-            }
-            var data = await _db.Books.FindAsync(id);
-            if (data == null) return NotFound();
-
-            string fileName = Path.Combine("image", "books", vm.ImageFile.FileName);
-
-            using (FileStream fs = System.IO.File.Create(Path.Combine(_webHostEnvironment.WebRootPath, fileName)))
-            {
-                await vm.ImageFile.CopyToAsync(fs);
+                return NotFound();
             }
 
-            data.Name = vm.Name;
-            data.About = vm.About;
-            data.Avability = vm.Avability;
-            data.Brand = vm.Brand;
-            data.CostPrice = vm.CostPrice;
-            data.Description = vm.Description;
-            data.Discount = vm.Discount;
-            data.ExTax = vm.ExTax;
-            data.BookCode = vm.BookCode;
-            data.Quantity = vm.Quantity;
-            data.RewardPoints = vm.RewardPoints;
-            data.SellPrice = vm.SellPrice;
-            data.CategoryId = vm.CategoryId;
-            data.CoverImageUrl = fileName;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _db.Update(book);
+                    await _db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BookExists(book.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["CategoryId"] = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
+            return View(book);
+        }
 
-            TempData["BookRenovationResponse"] = true;
+        public async Task<IActionResult> DeleteBook(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var book = await _db.Books.Include(b => b.Category).Include(b => b.BookImage).FirstOrDefaultAsync(b => b.Id == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var book = await _db.Books.FindAsync(id);
+            _db.Books.Remove(book);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        private bool BookExists(int id)
         {
-            TempData["BookDeletionResponse"] = false;
-            if (id == null) return BadRequest();
-            var data = await _db.Books.FindAsync(id);
-            if (data == null) return NotFound();
-            _db.Books.Remove(data);
-            await _db.SaveChangesAsync();
-            TempData["BookDeletionResponse"] = true;
-            return RedirectToAction(nameof(Index));
+            return _db.Books.Any(b => b.Id == id);
         }
     }
 }

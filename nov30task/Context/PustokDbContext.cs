@@ -13,5 +13,6 @@ namespace nov30task.Context
         public DbSet<BookImage> BookImages { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Tag> Tags { get; set; }
     }
 }

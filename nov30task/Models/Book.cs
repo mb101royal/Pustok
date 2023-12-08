@@ -31,5 +31,7 @@ namespace nov30task.Models
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public bool IsDeleted { get; set; } = false;
+
+        public ICollection<BookImage> BookImages { get; set; }
     }
 }
