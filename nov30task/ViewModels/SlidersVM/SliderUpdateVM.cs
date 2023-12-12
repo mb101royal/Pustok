@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace nov30task.ViewModels.SlidersVM
 {
@@ -10,10 +11,10 @@ namespace nov30task.ViewModels.SlidersVM
         [MinLength(3), MaxLength(64)]
         public string Text { get; set; }
 
-        [Required, MaxLength(256)]
+        [Required, MaxLength(256), DisplayName("Image url")]
         public string ImageUrl { get; set; }
 
-        [Required, MinLength(3), MaxLength(16)]
+        [Required, MinLength(3), MaxLength(16), DisplayName("Button Text")]
         public string ButtonText { get; set; }
 
         public byte Position { get; set; }

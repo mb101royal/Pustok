@@ -12,7 +12,7 @@ namespace nov30task.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public int AuthorId { get; set; }
-        public Author Author{ get; set; }
+        public Author Author { get; set; }
         public bool IsDeleted { get; set; } = false;
         public ICollection<Tag> TagId { get; set; }
     }

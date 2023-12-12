@@ -10,7 +10,7 @@ namespace nov30task.Models
         public string Title { get; set; }
 
         [MinLength(3), MaxLength(64)]
-        public string Text { get; set; }
+        public string? Text { get; set; }
 
         [Required, MaxLength(256)]
         public string ImageUrl { get; set; }
@@ -19,6 +19,6 @@ namespace nov30task.Models
         public string ButtonText { get; set; }
 
         [Required]
-        public bool IsLeft { get; set; }
+        public bool Position { get; set; }
     }
 }

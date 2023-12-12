@@ -35,12 +35,6 @@ namespace nov30task.Areas.Admin.Controllers
 				Quantity = p.Quantity,
 				About = p.About,
                 Description = p.Description,
-                ExTax = p.ExTax,
-                Brand = p.Brand,
-                BookCode = p.BookCode,
-				RewardPoints = p.RewardPoints,
-				Avability = p.Avability,
-                ImageUrl = p.CoverImageUrl
             }));
 		}
 
@@ -64,7 +58,7 @@ namespace nov30task.Areas.Admin.Controllers
             return View(book);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        /*public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -111,22 +105,22 @@ namespace nov30task.Areas.Admin.Controllers
             }
             ViewData["CategoryId"] = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
             return View(book);
-        }
+        }*/
 
-        public async Task<IActionResult> DeleteBook(int? id)
+        /*public async Task<IActionResult> DeleteBook(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var book = await _db.Books.Include(b => b.Category).Include(b => b.BookImage).FirstOrDefaultAsync(b => b.Id == id);
-            if (book == null)
-            {
-                return NotFound();
-            }
+            //var book = await _db.Books.Include(b => b.Category).Include(b => b.BookImage).FirstOrDefaultAsync(b => b.Id == id);
+            //if (book == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(book);
+            //return View(book);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -142,6 +136,6 @@ namespace nov30task.Areas.Admin.Controllers
         private bool BookExists(int id)
         {
             return _db.Books.Any(b => b.Id == id);
-        }
+        }*/
     }
 }

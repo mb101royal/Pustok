@@ -22,6 +22,21 @@ namespace nov30task.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("BlogTag", b =>
+                {
+                    b.Property<int>("BlogIdId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagIdId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BlogIdId", "TagIdId");
+
+                    b.HasIndex("TagIdId");
+
+                    b.ToTable("BlogTag");
+                });
+
             modelBuilder.Entity("nov30task.Models.Author", b =>
                 {
                     b.Property<int>("Id")
@@ -93,33 +108,17 @@ namespace nov30task.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<string>("Avability")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BookCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Brand")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("CostPrice")
                         .HasColumnType("smallmoney");
 
-                    b.Property<string>("CoverImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Discount")
                         .HasColumnType("real");
-
-                    b.Property<decimal>("ExTax")
-                        .HasColumnType("smallmoney");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -131,9 +130,6 @@ namespace nov30task.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<string>("RewardPoints")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("SellPrice")
                         .HasColumnType("smallmoney");
@@ -212,11 +208,10 @@ namespace nov30task.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<bool>("IsLeft")
+                    b.Property<bool>("Position")
                         .HasColumnType("bit");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
@@ -228,6 +223,38 @@ namespace nov30task.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sliders");
+                });
+
+            modelBuilder.Entity("nov30task.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("BlogTag", b =>
+                {
+                    b.HasOne("nov30task.Models.Blog", null)
+                        .WithMany()
+                        .HasForeignKey("BlogIdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nov30task.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagIdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("nov30task.Models.Blog", b =>
@@ -255,7 +282,7 @@ namespace nov30task.Migrations
             modelBuilder.Entity("nov30task.Models.BookImage", b =>
                 {
                     b.HasOne("nov30task.Models.Book", "Book")
-                        .WithMany()
+                        .WithMany("BookImages")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -266,6 +293,11 @@ namespace nov30task.Migrations
             modelBuilder.Entity("nov30task.Models.Author", b =>
                 {
                     b.Navigation("Blogs");
+                });
+
+            modelBuilder.Entity("nov30task.Models.Book", b =>
+                {
+                    b.Navigation("BookImages");
                 });
 
             modelBuilder.Entity("nov30task.Models.Category", b =>

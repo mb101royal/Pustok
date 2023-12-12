@@ -18,16 +18,18 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var items = await _db.Sliders.Select(s => new SliderListItemVM
+
+            var sliderFromDb = await _db.Sliders.Select(slider => new SliderListItemVM
             {
-                Title = s.Title,
-                Text = s.Text,
-                IsLeft = s.IsLeft,
-                Id = s.Id,
-                ImageUrl = s.ImageUrl,
-                ButtonText = s.ButtonText
+                Id = slider.Id,
+                Title = slider.Title,
+                ButtonText = slider.ButtonText,
+                ImageUrl = slider.ImageUrl,
+                Position = slider.Position,
+                Text = slider.Text
             }).ToListAsync();
-            return View(items);
+
+            return View(sliderFromDb);
         }
 
         public IActionResult Create()
@@ -38,26 +40,29 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Create(SliderCreateVM vm)
         {
-            if (vm.Position < -1 || vm.Position > 1)
+            if (vm.Position == null)
             {
                 ModelState.AddModelError("Position", "Xeta");
             }
+
             if (!ModelState.IsValid)
             {
                 return View(vm);
             }
+
             Slider slider = new Slider
             {
                 Title = vm.Title,
                 Text = vm.Text,
                 ImageUrl = vm.ImageUrl,
-                IsLeft = vm.Position switch
+                Position = vm.Position switch
                 {
                     0 => false,
                     1 => true
                 },
                 ButtonText = vm.ButtonText,
             };
+
             await _db.Sliders.AddAsync(slider);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -83,10 +88,10 @@ namespace nov30task.Areas.Admin.Controllers
             return View(new SliderUpdateVM
             {
                 ImageUrl = data.ImageUrl,
-                Position = data.IsLeft switch
+                Position = data.Position switch
                 {
-                    true => 1,
-                    false => 0
+                    false => 0,
+                    true => 1
                 },
                 Text = data.Text,
                 Title = data.Title,
@@ -113,7 +118,7 @@ namespace nov30task.Areas.Admin.Controllers
             data.Text = vm.Text;
             data.Title = vm.Title;
             data.ImageUrl = vm.ImageUrl;
-            data.IsLeft = vm.Position switch
+            data.Position = vm.Position switch
             {
                 0 => false,
                 1 => true
