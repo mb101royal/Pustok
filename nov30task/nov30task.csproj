@@ -20,4 +20,10 @@
     <Folder Include="wwwroot\image\books\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\Sliders\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Sliders\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Sliders\Update.cshtml" />
+  </ItemGroup>
+
 </Project>

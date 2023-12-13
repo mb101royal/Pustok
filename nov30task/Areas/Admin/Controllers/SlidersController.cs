@@ -16,10 +16,12 @@ namespace nov30task.Areas.Admin.Controllers
             _db = db;
         }
 
+        // Index
+
         public async Task<IActionResult> Index()
         {
 
-            var sliderFromDb = await _db.Sliders.Select(slider => new SliderListItemVM
+            var sliderFromDb = await _db.Sliders.Select(slider => new SliderListVM
             {
                 Id = slider.Id,
                 Title = slider.Title,
@@ -32,12 +34,16 @@ namespace nov30task.Areas.Admin.Controllers
             return View(sliderFromDb);
         }
 
+        // Create:
+        
+        // Get
         public IActionResult Create()
         {
             return View();
         }
+        
+        // Post
         [HttpPost]
-
         public async Task<IActionResult> Create(SliderCreateVM vm)
         {
             if (vm.Position == null)
@@ -65,27 +71,22 @@ namespace nov30task.Areas.Admin.Controllers
 
             await _db.Sliders.AddAsync(slider);
             await _db.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            TempData["SliderDeletionResponse"] = false;
-            if (id == null) return BadRequest();
-            var data = await _db.Sliders.FindAsync(id);
-            if (data == null) return NotFound();
-            _db.Sliders.Remove(data);
-            await _db.SaveChangesAsync();
-            TempData["SliderDeletionResponse"] = true;
-            return RedirectToAction(nameof(Index));
-        }
+        // Update:
 
+        // Get
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null || id <= 0) return BadRequest();
+
             var data = await _db.Sliders.FindAsync(id);
+
             if (data == null) return NotFound();
-            return View(new SliderUpdateVM
+            
+            var sliderUpdate = new SliderUpdateVM
             {
                 ImageUrl = data.ImageUrl,
                 Position = data.Position switch
@@ -96,13 +97,15 @@ namespace nov30task.Areas.Admin.Controllers
                 Text = data.Text,
                 Title = data.Title,
                 ButtonText = data.ButtonText
-            });
-        }
-        [HttpPost]
+            };
 
+            return View(sliderUpdate);
+        }
+
+        // Post
+        [HttpPost]
         public async Task<IActionResult> Update(int? id, SliderUpdateVM vm)
         {
-            TempData["SliderRenovationResponse"] = false;
 
             if (id == null || id <= 0) return BadRequest();
             if (vm.Position < -1 || vm.Position > 1)
@@ -113,19 +116,37 @@ namespace nov30task.Areas.Admin.Controllers
             {
                 return View(vm);
             }
-            var data = await _db.Sliders.FindAsync(id);
-            if (data == null) return NotFound();
-            data.Text = vm.Text;
-            data.Title = vm.Title;
-            data.ImageUrl = vm.ImageUrl;
-            data.Position = vm.Position switch
+
+            var slider = await _db.Sliders.FindAsync(id);
+
+            if (slider == null) return NotFound();
+
+            slider.Text = vm.Text;
+            slider.Title = vm.Title;
+            slider.ImageUrl = vm.ImageUrl;
+            slider.ButtonText = vm.ButtonText;
+            slider.Position = vm.Position switch
             {
                 0 => false,
                 1 => true
             };
-            data.ButtonText = vm.ButtonText;
-            TempData["SliderRenovationResponse"] = true;
+
             await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Delete:
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return BadRequest();
+            var data = await _db.Sliders.FindAsync(id);
+            if (data == null) return NotFound();
+
+            _db.Sliders.Remove(data);
+            await _db.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

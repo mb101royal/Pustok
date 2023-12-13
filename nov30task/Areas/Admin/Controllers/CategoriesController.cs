@@ -16,20 +16,25 @@ namespace nov30task.Areas.Admin.Controllers
             _db = db;
         }
 
+        // Index
+
         public async Task<IActionResult> Index()
         {
-            var datas = await _db.Categories.Select(c => new CategoryListItemVM { Id = c.Id, Name = c.Name }).ToListAsync();
+            var CaregoryFromDb = await _db.Categories.Select(c => new CategoryListVM { Id = c.Id, Name = c.Name }).ToListAsync();
 
-            return View(datas);
+            return View(CaregoryFromDb);
         }
 
+        // Create
+
+        // Get
         public IActionResult Create()
         {
             return View();
         }
 
+        // Post
         [HttpPost]
-
         public async Task<IActionResult> Create(CategoryCreateVM vm)
         {
             if (!ModelState.IsValid)
@@ -46,18 +51,9 @@ namespace nov30task.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            TempData["CategoryDeletionResponse"] = false;
-            if (id == null) return BadRequest();
-            var data = await _db.Categories.FindAsync(id);
-            if (data == null) return NotFound();
-            _db.Categories.Remove(data);
-            await _db.SaveChangesAsync();
-            TempData["CategoryDeletionResponse"] = true;
-            return RedirectToAction(nameof(Index));
-        }
+        // Update:
 
+        // Get
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null || id <= 0) return BadRequest();
@@ -66,8 +62,8 @@ namespace nov30task.Areas.Admin.Controllers
             return View(new CategoryUpdateVM { Name = data.Name });
         }
 
+        // Post
         [HttpPost]
-
         public async Task<IActionResult> Update(int? id, CategoryUpdateVM vm)
         {
             TempData["CategoryRenovationResponse"] = false;
@@ -84,6 +80,21 @@ namespace nov30task.Areas.Admin.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        // Delete:
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            TempData["CategoryDeletionResponse"] = false;
+            if (id == null) return BadRequest();
+            var data = await _db.Categories.FindAsync(id);
+            if (data == null) return NotFound();
+            _db.Categories.Remove(data);
+            await _db.SaveChangesAsync();
+            TempData["CategoryDeletionResponse"] = true;
+            return RedirectToAction(nameof(Index));
+        }
+
 
     }
 }

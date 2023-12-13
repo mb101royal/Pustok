@@ -22,21 +22,6 @@ namespace nov30task.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BlogTag", b =>
-                {
-                    b.Property<int>("BlogIdId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagIdId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BlogIdId", "TagIdId");
-
-                    b.HasIndex("TagIdId");
-
-                    b.ToTable("BlogTag");
-                });
-
             modelBuilder.Entity("nov30task.Models.Author", b =>
                 {
                     b.Property<int>("Id")
@@ -94,6 +79,28 @@ namespace nov30task.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("nov30task.Models.BlogTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TagId")
+                        .IsUnique();
+
+                    b.ToTable("BlogTag");
                 });
 
             modelBuilder.Entity("nov30task.Models.Book", b =>
@@ -233,28 +240,18 @@ namespace nov30task.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Title")
+                    b.Property<int?>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BlogId");
+
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("BlogTag", b =>
-                {
-                    b.HasOne("nov30task.Models.Blog", null)
-                        .WithMany()
-                        .HasForeignKey("BlogIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("nov30task.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("nov30task.Models.Blog", b =>
@@ -266,6 +263,15 @@ namespace nov30task.Migrations
                         .IsRequired();
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("nov30task.Models.BlogTag", b =>
+                {
+                    b.HasOne("nov30task.Models.Tag", null)
+                        .WithOne("BlogTags")
+                        .HasForeignKey("nov30task.Models.BlogTag", "TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("nov30task.Models.Book", b =>
@@ -290,9 +296,21 @@ namespace nov30task.Migrations
                     b.Navigation("Book");
                 });
 
+            modelBuilder.Entity("nov30task.Models.Tag", b =>
+                {
+                    b.HasOne("nov30task.Models.Blog", null)
+                        .WithMany("TagId")
+                        .HasForeignKey("BlogId");
+                });
+
             modelBuilder.Entity("nov30task.Models.Author", b =>
                 {
                     b.Navigation("Blogs");
+                });
+
+            modelBuilder.Entity("nov30task.Models.Blog", b =>
+                {
+                    b.Navigation("TagId");
                 });
 
             modelBuilder.Entity("nov30task.Models.Book", b =>
@@ -303,6 +321,12 @@ namespace nov30task.Migrations
             modelBuilder.Entity("nov30task.Models.Category", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("nov30task.Models.Tag", b =>
+                {
+                    b.Navigation("BlogTags")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
