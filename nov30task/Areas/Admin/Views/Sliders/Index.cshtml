@@ -1,4 +1,4 @@
-﻿@model List<SliderListVM>
+﻿@model List<SliderListItemVM>
 @{
     ViewData["Title"] = "Slider";
 }
@@ -12,12 +12,14 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                <th>Title</th>
-                <th>Text</th>
-                <th>Image</th>
-                <th>Position</th>
-                <th>ButtonText</th>
-                <th colspan="2">Action</th>
+                    <tr>
+                        <th>Title</th>
+                        <th>Text</th>
+                        <th>Image</th>
+                        <th>Position</th>
+                        <th>ButtonText</th>
+                        <th colspan="2">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @if (Model != null)

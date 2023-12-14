@@ -2,46 +2,13 @@
 @{
     ViewData["Title"] = "Update";
 }
-@section styles{
-    <link href="~/Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-}
-@section scripts{
-    <script src="~/Admin/js/demo/datatables-demo.js"></script>
-}
-@if (TempData["BookRenovationResponse"] != null)
-{
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if ((bool)TempData["BookRenovationResponse"] == true)
-    {
-        <script>
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Melumat ugurla yenilendi",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        </script>
-    }
-    else
-    {
-        <script>
-            Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Xeta",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        </script>
-    }
-}
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Update Book</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Create Book</h6>
     </div>
     <div class="card-body">
-        <form asp-action="Update" method="post">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control">
@@ -58,29 +25,9 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ExTax"></label>
-                <input asp-for="ExTax" class="form-control">
-                <span asp-validation-for="ExTax" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Brand"></label>
                 <input asp-for="Brand" class="form-control">
                 <span asp-validation-for="Brand" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BookCode"></label>
-                <input asp-for="BookCode" class="form-control">
-                <span asp-validation-for="BookCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RewardPoints"></label>
-                <input asp-for="RewardPoints" class="form-control">
-                <span asp-validation-for="RewardPoints" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Avability"></label>
-                <input asp-for="Avability" class="form-control">
-                <span asp-validation-for="Avability" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SellPrice"></label>

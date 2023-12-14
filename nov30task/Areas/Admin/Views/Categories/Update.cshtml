@@ -2,40 +2,7 @@
 @{
     ViewData["Title"] = "Update";
 }
-@section styles{
-    <link href="~/Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-}
-@section scripts{
-    <script src="~/Admin/js/demo/datatables-demo.js"></script>
-}
-@if (TempData["CategoryRenovationResponse"] != null)
-{
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if ((bool)TempData["CategoryRenovationResponse"] == true)
-    {
-        <script>
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Melumat ugurla yenilendi",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        </script>
-    }
-    else
-    {
-        <script>
-            Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Xeta",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        </script>
-    }
-}
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Update Category</h6>

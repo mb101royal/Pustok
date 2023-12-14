@@ -23,13 +23,13 @@ namespace nov30task.Areas.Admin.Controllers
         public IActionResult Index()
         {
 
-            var tagFromDb = _db.Tags.Select(tag => new TagListItemVM
+            var tagsFromDb = _db.Tags.Select(tag => new TagListItemVM
             {
                 Id = tag.Id,
                 Name = tag.Name
             }).ToList();
 
-            return View(tagFromDb);
+            return View(tagsFromDb);
         }
 
         // Create:

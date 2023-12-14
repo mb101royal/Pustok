@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using nov30task.Areas.Admin.ViewModels;
 using nov30task.Context;
 using nov30task.Models;
 using nov30task.ViewModels.BooksVM;
+using nov30task.ViewModels.SlidersVM;
 
 namespace nov30task.Areas.Admin.Controllers
 {
@@ -22,89 +22,89 @@ namespace nov30task.Areas.Admin.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
 		{
-			return base.View(_db.Books.Select(p => new AdminBookListItemVM{
-				Id = p.Id,
-				Name = p.Name,
-				CostPrice = p.CostPrice,
-				SellPrice = p.SellPrice,
-				Discount = p.Discount,
+            var booksFromDb = await _db.Books.Select(p => new BookListItemVM
+            {
+                Id = p.Id,
+                Name = p.Name,
+                CostPrice = p.CostPrice,
+                SellPrice = p.SellPrice,
+                Discount = p.Discount,
                 Category = p.Category,
                 IsDeleted = p.IsDeleted,
-				Quantity = p.Quantity,
-				About = p.About,
+                Quantity = p.Quantity,
+                About = p.About,
                 Description = p.Description,
-            }));
+            }).ToListAsync();
+
+            return base.View(booksFromDb);
 		}
 
-		public async Task<IActionResult> Create()
+        // Create:
+
+        // Get
+		public IActionResult Create()
 		{
-            ViewBag.Categories = await _db.Categories.ToListAsync();
+            ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name");
             return View();
 		}
 
-		[HttpPost]
-
-        public async Task<IActionResult> Create([Bind("Id,Name,About,Description,ExTax,Brand,BookCode,RewardPoints,Avability,SellPrice,CostPrice,Discount,CoverImageUrl,Quantity,CategoryId,IsDeleted")] Book book)
+        // Post
+        [HttpPost]
+        public async Task<IActionResult> Create(BookCreateVM vm)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _db.Add(book);
-                await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(vm);
             }
+
+            Book book = new Book
+            {
+                Name = vm.Name,
+                About = vm.About,
+                CostPrice = vm.CostPrice,
+                Description = vm.Description,
+                Discount = vm.Discount,
+                ImageUrl = vm.ImageUrl,
+                Quantity = vm.Quantity,
+                SellPrice = vm.SellPrice,
+                // Error here:
+                Id = vm.CategoryId
+            };
+
             ViewData["CategoryId"] = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
-            return View(book);
+
+            await _db.Books.AddAsync(book);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
-        /*public async Task<IActionResult> Edit(int? id)
+        // Update:
+
+        // Get
+        public async Task<IActionResult> Update(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var book = await _db.Books.FindAsync(id);
-            if (book == null)
-            {
-                return NotFound();
-            }
+
+            if (book == null) return NotFound();
+
             ViewData["CategoryId"] = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
+
             return View(book);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,About,Description,ExTax,Brand,BookCode,RewardPoints,Avability,SellPrice,CostPrice,Discount,CoverImageUrl,Quantity,CategoryId,IsDeleted")] Book book)
+        // Post
+        /*[HttpPost]
+        public async Task<IActionResult> Update(int id, Book book)
         {
-            if (id != book.Id)
-            {
-                return NotFound();
-            }
+            if (id != book.Id) return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _db.Update(book);
-                    await _db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BookExists(book.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CategoryId"] = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
-            return View(book);
+
+
         }*/
 
         /*public async Task<IActionResult> DeleteBook(int? id)

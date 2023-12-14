@@ -21,7 +21,7 @@ namespace nov30task.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var sliderFromDb = await _db.Sliders.Select(slider => new SliderListVM
+            var slidersFromDb = await _db.Sliders.Select(slider => new SliderListItemVM
             {
                 Id = slider.Id,
                 Title = slider.Title,
@@ -31,7 +31,7 @@ namespace nov30task.Areas.Admin.Controllers
                 Text = slider.Text
             }).ToListAsync();
 
-            return View(sliderFromDb);
+            return View(slidersFromDb);
         }
 
         // Create:

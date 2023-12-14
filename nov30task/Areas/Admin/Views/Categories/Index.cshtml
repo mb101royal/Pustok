@@ -2,40 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-@section styles{
-    <link href="~/Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-}
-@section scripts{
-    <script src="~/Admin/js/demo/datatables-demo.js"></script>
-}
-@if (TempData["CategoryDeletionResponse"] != null)
-{
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if ((bool)TempData["CategoryDeletionResponse"] == true)
-    {
-        <script>
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Melumat ugurla silindi",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        </script>
-    }
-    else
-    {
-        <script>
-            Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Xeta",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        </script>
-    }
-}
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Categories</h6>
@@ -45,9 +12,11 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th colspan="2">Action</th>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th colspan="2">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
 

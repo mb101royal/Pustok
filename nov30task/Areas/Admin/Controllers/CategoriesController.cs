@@ -20,9 +20,9 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var CaregoryFromDb = await _db.Categories.Select(c => new CategoryListVM { Id = c.Id, Name = c.Name }).ToListAsync();
+            var CaregoriesFromDb = await _db.Categories.Select(c => new CategoryListVM { Id = c.Id, Name = c.Name }).ToListAsync();
 
-            return View(CaregoryFromDb);
+            return View(CaregoriesFromDb);
         }
 
         // Create
@@ -57,27 +57,32 @@ namespace nov30task.Areas.Admin.Controllers
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null || id <= 0) return BadRequest();
+
             var data = await _db.Categories.FindAsync(id);
+
             if (data == null) return NotFound();
-            return View(new CategoryUpdateVM { Name = data.Name });
+
+            var categoryUpdate = new CategoryUpdateVM { Name = data.Name };
+
+            return View(categoryUpdate);
         }
 
         // Post
         [HttpPost]
         public async Task<IActionResult> Update(int? id, CategoryUpdateVM vm)
         {
-            TempData["CategoryRenovationResponse"] = false;
-
             if (id == null || id <= 0) return BadRequest();
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
+
+            if (!ModelState.IsValid) return View(vm);
+
             var data = await _db.Categories.FindAsync(id);
+
             if (data == null) return NotFound();
+
             data.Name = vm.Name;
-            TempData["CategoryRenovationResponse"] = true;
+
             await _db.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -85,16 +90,16 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            TempData["CategoryDeletionResponse"] = false;
             if (id == null) return BadRequest();
+            
             var data = await _db.Categories.FindAsync(id);
+            
             if (data == null) return NotFound();
+            
             _db.Categories.Remove(data);
             await _db.SaveChangesAsync();
-            TempData["CategoryDeletionResponse"] = true;
+
             return RedirectToAction(nameof(Index));
         }
-
-
     }
 }

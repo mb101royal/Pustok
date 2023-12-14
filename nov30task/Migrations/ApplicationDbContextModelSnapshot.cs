@@ -127,6 +127,10 @@ namespace nov30task.Migrations
                     b.Property<float>("Discount")
                         .HasColumnType("real");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -240,16 +244,11 @@ namespace nov30task.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("BlogId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BlogId");
 
                     b.ToTable("Tags");
                 });
@@ -288,7 +287,7 @@ namespace nov30task.Migrations
             modelBuilder.Entity("nov30task.Models.BookImage", b =>
                 {
                     b.HasOne("nov30task.Models.Book", "Book")
-                        .WithMany("BookImages")
+                        .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -296,26 +295,9 @@ namespace nov30task.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("nov30task.Models.Tag", b =>
-                {
-                    b.HasOne("nov30task.Models.Blog", null)
-                        .WithMany("TagId")
-                        .HasForeignKey("BlogId");
-                });
-
             modelBuilder.Entity("nov30task.Models.Author", b =>
                 {
                     b.Navigation("Blogs");
-                });
-
-            modelBuilder.Entity("nov30task.Models.Blog", b =>
-                {
-                    b.Navigation("TagId");
-                });
-
-            modelBuilder.Entity("nov30task.Models.Book", b =>
-                {
-                    b.Navigation("BookImages");
                 });
 
             modelBuilder.Entity("nov30task.Models.Category", b =>

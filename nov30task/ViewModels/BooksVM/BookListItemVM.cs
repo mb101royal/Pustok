@@ -6,9 +6,11 @@ namespace nov30task.ViewModels.BooksVM
 {
     public class BookListItemVM
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string? About { get; set; }
         public string? Description { get; set; }
+        public string? Brand { get; set; }
         public decimal SellPrice { get; set; }
         public decimal CostPrice { get; set; }
         public float Discount { get; set; }
