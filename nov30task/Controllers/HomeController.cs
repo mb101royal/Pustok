@@ -19,5 +19,33 @@ namespace nov30task.Controllers
             return View(sliders);
         }
 
+
+
+        public string GetSession(string key)
+        {
+            return HttpContext.Session.GetString(key) ?? "";
+            //HttpContext.Session.Remove(key);
+        }
+
+        public void GetSession(string key, string value)
+        {
+            HttpContext.Session.SetString(key, value);
+        }
+
+        public string GetCookie(string key)
+        {
+            return HttpContext.Request.Cookies[key] ?? "";
+        }
+
+        public void SetCookie(string key, string value)
+        {
+            HttpContext.Response.Cookies.Append(key, value, new CookieOptions
+            {
+                // MaxAge = TimeSpan.FromSeconds(100)
+                // Expires = DateTime.UtcNow.AddDays(10)
+            }) ;
+            // HttpContext.Response.Cookies.Delete(key);
+        }
+
     }
 }

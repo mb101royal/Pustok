@@ -20,7 +20,7 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var CaregoriesFromDb = await _db.Categories.Select(c => new CategoryListVM { Id = c.Id, Name = c.Name }).ToListAsync();
+            var CaregoriesFromDb = await _db.Categories.Select(c => new CategoryListItemVM { Id = c.Id, Name = c.Name }).ToListAsync();
 
             return View(CaregoriesFromDb);
         }

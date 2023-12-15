@@ -10,6 +10,10 @@ builder.Services.AddDbContext<PustokDbContext>(options =>
     options.UseSqlServer(builder.Configuration["ConnectionStrings:MSSql"]);
 });
 
+builder.Services.AddSession();
+
+/*builder.Services.AddScoped<LayoutService>();
+*/
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,11 +21,24 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+app.UseSession();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "shop",
+    pattern: "magaza",
+    defaults: new
+    {
+        Controller = "Shop",
+        Action = "Index"
+    }
+);
 
 app.MapControllerRoute(
     name: "areas",

@@ -41,7 +41,7 @@ namespace nov30task.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("nov30task.Models.Blog", b =>
@@ -78,7 +78,7 @@ namespace nov30task.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("nov30task.Models.BlogTag", b =>
@@ -100,7 +100,7 @@ namespace nov30task.Migrations
                     b.HasIndex("TagId")
                         .IsUnique();
 
-                    b.ToTable("BlogTag");
+                    b.ToTable("BlogTag", (string)null);
                 });
 
             modelBuilder.Entity("nov30task.Models.Book", b =>
@@ -149,7 +149,7 @@ namespace nov30task.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("nov30task.Models.BookImage", b =>
@@ -174,7 +174,7 @@ namespace nov30task.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookImages");
+                    b.ToTable("BookImages", (string)null);
                 });
 
             modelBuilder.Entity("nov30task.Models.Category", b =>
@@ -193,12 +193,14 @@ namespace nov30task.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
 
-                    b.Property<int>("ParentCategoryId")
+                    b.Property<int?>("ParentCategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.HasIndex("ParentCategoryId");
+
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("nov30task.Models.Slider", b =>
@@ -233,7 +235,7 @@ namespace nov30task.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sliders");
+                    b.ToTable("Sliders", (string)null);
                 });
 
             modelBuilder.Entity("nov30task.Models.Tag", b =>
@@ -250,7 +252,7 @@ namespace nov30task.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("nov30task.Models.Blog", b =>
@@ -293,6 +295,15 @@ namespace nov30task.Migrations
                         .IsRequired();
 
                     b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("nov30task.Models.Category", b =>
+                {
+                    b.HasOne("nov30task.Models.Category", "ParentCategory")
+                        .WithMany()
+                        .HasForeignKey("ParentCategoryId");
+
+                    b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("nov30task.Models.Author", b =>

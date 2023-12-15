@@ -16,7 +16,7 @@ namespace nov30task.Areas.Admin.Controllers
             _db = db;
         }
 
-        // Index
+        // Index:
 
         public async Task<IActionResult> Index()
         {
@@ -108,14 +108,10 @@ namespace nov30task.Areas.Admin.Controllers
         {
 
             if (id == null || id <= 0) return BadRequest();
-            if (vm.Position < -1 || vm.Position > 1)
-            {
-                ModelState.AddModelError("Position", "Xeta");
-            }
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
+
+            if (vm.Position < -1 || vm.Position > 1) ModelState.AddModelError("Position", "Xeta");
+
+            if (!ModelState.IsValid) return View(vm);
 
             var slider = await _db.Sliders.FindAsync(id);
 

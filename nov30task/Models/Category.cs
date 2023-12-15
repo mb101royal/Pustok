@@ -7,8 +7,9 @@ namespace nov30task.Models
         public int Id { get; set; }
         [MaxLength(16)]
         public string Name { get; set; }
-        public IEnumerable<Book>? Books { get; set; }
+        public ICollection<Book>? Books { get; set; } = new List<Book>();
+        public int? ParentCategoryId { get; set; }
         public bool IsDeleted { get; set; }
-        public int ParentCategoryId { get; set; }
+        public Category? ParentCategory { get; set; }
     }
 }

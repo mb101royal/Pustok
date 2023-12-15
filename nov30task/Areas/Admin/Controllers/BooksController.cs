@@ -22,6 +22,8 @@ namespace nov30task.Areas.Admin.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        // Index:
+
         public async Task<IActionResult> Index()
 		{
             var booksFromDb = await _db.Books.Select(p => new BookListItemVM
@@ -36,6 +38,7 @@ namespace nov30task.Areas.Admin.Controllers
                 Quantity = p.Quantity,
                 About = p.About,
                 Description = p.Description,
+                ImageUrl = p.ImageUrl,
             }).ToListAsync();
 
             return base.View(booksFromDb);
@@ -47,6 +50,7 @@ namespace nov30task.Areas.Admin.Controllers
 		public IActionResult Create()
 		{
             ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name");
+
             return View();
 		}
 
@@ -69,11 +73,11 @@ namespace nov30task.Areas.Admin.Controllers
                 ImageUrl = vm.ImageUrl,
                 Quantity = vm.Quantity,
                 SellPrice = vm.SellPrice,
-                // Error here:
-                Id = vm.CategoryId
+                CategoryId = vm.CategoryId,
+
             };
 
-            ViewData["CategoryId"] = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
+            ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
 
             await _db.Books.AddAsync(book);
             await _db.SaveChangesAsync();
@@ -92,50 +96,60 @@ namespace nov30task.Areas.Admin.Controllers
 
             if (book == null) return NotFound();
 
-            ViewData["CategoryId"] = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
+            ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
+            
+            var getBook = new BookUpdateVM
+            {
+                About = book.About,
+                CostPrice = book.CostPrice,
+                Description = book.Description,
+                CategoryId = book.CategoryId,
+                Discount = book.Discount,
+                ImageUrl = book.ImageUrl,
+                Name = book.Name,
+                Quantity = book.Quantity,
+                SellPrice = book.SellPrice,
+            };
 
-            return View(book);
+            return View(getBook);
         }
 
         // Post
-        /*[HttpPost]
-        public async Task<IActionResult> Update(int id, Book book)
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, BookUpdateVM vm)
         {
-            if (id != book.Id) return NotFound();
+            if (id <= 0) return BadRequest();
 
+            if (!ModelState.IsValid) return View(vm);
 
-
-        }*/
-
-        /*public async Task<IActionResult> DeleteBook(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            //var book = await _db.Books.Include(b => b.Category).Include(b => b.BookImage).FirstOrDefaultAsync(b => b.Id == id);
-            //if (book == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return View(book);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
             var book = await _db.Books.FindAsync(id);
-            _db.Books.Remove(book);
+
+            if (book == null) return NotFound();
+
+            book.Name = vm.Name;
+            book.ImageUrl = vm.ImageUrl;
+            book.Quantity = vm.Quantity;
+            book.SellPrice = vm.SellPrice;
+            book.Discount = vm.Discount;
+            book.CategoryId = vm.CategoryId;
+            book.About = vm.About;
+            book.CostPrice = vm.CostPrice;
+            book.Description = vm.Description;
+
             await _db.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BookExists(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            return _db.Books.Any(b => b.Id == id);
-        }*/
+            if (id == null) return NotFound();
+
+            var book = await _db.Books.Include(b => b.Category).Include(b => b.ImageUrl).FirstOrDefaultAsync(b => b.Id == id);
+
+            if (book == null) return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Home\Components\" />
+    <Folder Include="Views\Shared\Components\" />
     <Folder Include="wwwroot\image\books\" />
   </ItemGroup>
 

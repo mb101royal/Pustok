@@ -12,7 +12,6 @@ namespace nov30task.ViewModels.BooksVM
         public string? About { get; set; }
 
         public string? Description { get; set; }
-        public string Brand { get; set; }
         [Column(TypeName = "smallmoney")]
         public decimal SellPrice { get; set; }
         [Column(TypeName = "smallmoney")]
