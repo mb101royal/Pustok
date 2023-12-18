@@ -7,11 +7,11 @@ namespace nov30task.Controllers
     public class BookController : Controller
     {
 
-        PustokDbContext _context { get; }
+        PustokDbContext Db { get; }
 
-        public BookController(PustokDbContext context)
+        public BookController(PustokDbContext db)
         {
-            _context = context;
+            Db = db;
         }
 
         public IActionResult Index()
@@ -38,7 +38,7 @@ namespace nov30task.Controllers
         {
             if (id == null || id <= 0) return BadRequest();
 
-            if (!await _context.Books.AnyAsync(b => b.Id == id)) return NotFound();
+            if (!await Db.Books.AnyAsync(b => b.Id == id)) return NotFound();
 
             HttpContext.Response.Cookies.Append("basket", id.ToString());
 

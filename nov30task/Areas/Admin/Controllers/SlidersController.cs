@@ -21,14 +21,14 @@ namespace nov30task.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var slidersFromDb = await Db.Sliders.Select(slider => new SliderListItemVM
+            var slidersFromDb = await Db.Sliders.Select(sliderFromDb => new SliderListItemVM
             {
-                Id = slider.Id,
-                Title = slider.Title,
-                ButtonText = slider.ButtonText,
-                ImageUrl = slider.ImageUrl,
-                Position = slider.Position,
-                Text = slider.Text
+                Id = sliderFromDb.Id,
+                Title = sliderFromDb.Title,
+                ButtonText = sliderFromDb.ButtonText,
+                ImageUrl = sliderFromDb.ImageUrl,
+                Position = sliderFromDb.Position,
+                Text = sliderFromDb.Text
             }).ToListAsync();
 
             return View(slidersFromDb);
@@ -44,27 +44,27 @@ namespace nov30task.Areas.Admin.Controllers
         
         // Post
         [HttpPost]
-        public async Task<IActionResult> Create(SliderCreateVM vm)
+        public async Task<IActionResult> Create(SliderCreateVM sliderCreateViewModel)
         {
-            if (vm.Position > 1 || vm.Position < 0) ModelState.AddModelError("Position", "Xeta");
+            if (sliderCreateViewModel.Position > 1 || sliderCreateViewModel.Position < 0) ModelState.AddModelError("Position", "Xeta");
 
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid) return View(sliderCreateViewModel);
 
-            Slider sliderToCreate = new()
+            Slider sliderCreate = new()
             {
-                Title = vm.Title,
-                Text = vm.Text,
-                ImageUrl = vm.ImageUrl,
-                Position = vm.Position switch
+                Title = sliderCreateViewModel.Title,
+                Text = sliderCreateViewModel.Text,
+                ImageUrl = sliderCreateViewModel.ImageUrl,
+                Position = sliderCreateViewModel.Position switch
                 {
                     0 => false,
                     1 => true,
                     _ => throw new NotImplementedException(),
                 },
-                ButtonText = vm.ButtonText,
+                ButtonText = sliderCreateViewModel.ButtonText,
             };
 
-            await Db.Sliders.AddAsync(sliderToCreate);
+            await Db.Sliders.AddAsync(sliderCreate);
             await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

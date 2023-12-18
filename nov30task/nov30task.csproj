@@ -17,12 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <Folder Include="ViewComponents\" />
-=======
     <Folder Include="Views\Home\Components\" />
     <Folder Include="Views\Shared\Components\" />
->>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
     <Folder Include="wwwroot\image\books\" />
   </ItemGroup>
 

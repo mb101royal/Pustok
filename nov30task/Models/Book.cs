@@ -14,9 +14,11 @@ namespace nov30task.Models
         [Column(TypeName = "smallmoney")] public decimal CostPrice { get; set; }
         [Range(0, 100)] public float Discount { get; set; }
         public ushort Quantity { get; set; }
+        [Required]
         public string? ImageUrl { get; set; }
+        [Required]
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
         public bool IsDeleted { get; set; }
 
     }

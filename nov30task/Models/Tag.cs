@@ -9,6 +9,6 @@ namespace nov30task.Models
         [Required]
         public string? Name { get; set; }
 
-        public ICollection<BlogTag>? BlogsTag { get; set; }
+        public ICollection<Blog>? Blogs { get; set; }
     }
 }

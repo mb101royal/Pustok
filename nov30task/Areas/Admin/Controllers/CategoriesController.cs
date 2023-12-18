@@ -9,7 +9,6 @@ namespace nov30task.Areas.Admin.Controllers
     [Area("Admin")]
     public class CategoriesController : Controller
     {
-
         PustokDbContext Db { get; }
 
         public CategoriesController(PustokDbContext db)
@@ -21,10 +20,10 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var CaregoriesFromDb = await Db.Categories.Select(category => new CategoryListVM
+            var CaregoriesFromDb = await Db.Categories.Select(categoryFromDb => new CategoryListItemVM
             {
-                Id = category.Id,
-                Name = category.Name
+                Id = categoryFromDb.Id,
+                Name = categoryFromDb.Name
             }).ToListAsync();
 
             return View(CaregoriesFromDb);
@@ -40,19 +39,19 @@ namespace nov30task.Areas.Admin.Controllers
 
         // Post
         [HttpPost]
-        public async Task<IActionResult> Create(CategoryCreateVM vm)
+        public async Task<IActionResult> Create(CategoryCreateVM categoryCreateViewModel)
         {
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid) return View(categoryCreateViewModel);
 
-            if (await Db.Categories.AnyAsync(s => s.Name == vm.Name))
+            if (await Db.Categories.AnyAsync(s => s.Name == categoryCreateViewModel.Name))
             {
-                ModelState.AddModelError("Name", vm.Name + " adı artıq mövcuddur.");
-                return View(vm);
+                ModelState.AddModelError("Name", categoryCreateViewModel.Name + " adı artıq mövcuddur.");
+                return View(categoryCreateViewModel);
             }
 
-            Category categoryToCreate = new() {Name = vm.Name};
+            Category categoryCreate = new() {Name = categoryCreateViewModel.Name};
 
-            await Db.Categories.AddAsync(categoryToCreate);
+            await Db.Categories.AddAsync(categoryCreate);
             await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -69,24 +68,24 @@ namespace nov30task.Areas.Admin.Controllers
 
             if (categoryFromDb == null) return NotFound();
 
-            CategoryUpdateVM categoryToUpdate = new() { Name = categoryFromDb.Name };
+            CategoryUpdateVM categoryUpdateViewModel = new() { Name = categoryFromDb.Name };
 
-            return View(categoryToUpdate);
+            return View(categoryUpdateViewModel);
         }
 
         // Post
         [HttpPost]
-        public async Task<IActionResult> Update(int? id, CategoryUpdateVM vm)
+        public async Task<IActionResult> Update(int? id, CategoryUpdateVM categoryUpdateViewModel)
         {
             if (id == null || id <= 0) return BadRequest();
 
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid) return View(categoryUpdateViewModel);
 
             var categoryFromDb = await Db.Categories.FindAsync(id);
 
             if (categoryFromDb == null) return NotFound();
 
-            categoryFromDb.Name = vm.Name;
+            categoryFromDb.Name = categoryUpdateViewModel.Name;
 
             await Db.SaveChangesAsync();
 
@@ -99,11 +98,11 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null) return BadRequest();
             
-            var categoryToDelete = await Db.Categories.FindAsync(id);
+            var categoryFromDb = await Db.Categories.FindAsync(id);
             
-            if (categoryToDelete == null) return NotFound();
+            if (categoryFromDb == null) return NotFound();
             
-            Db.Categories.Remove(categoryToDelete);
+            Db.Categories.Remove(categoryFromDb);
             await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

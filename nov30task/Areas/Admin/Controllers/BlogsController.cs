@@ -9,12 +9,9 @@ using NuGet.Protocol.Plugins;
 
 namespace nov30task.Areas.Admin.Controllers
 {
-
     [Area("Admin")]
-
     public class BlogsController : Controller
     {
-
         PustokDbContext Db { get; }
 
         public BlogsController(PustokDbContext db)
@@ -22,16 +19,16 @@ namespace nov30task.Areas.Admin.Controllers
             Db = db;
         }
 
+        // Index:
+
         public async Task<IActionResult> Index()
         {
-            var blogsFromDb = await Db.Blogs.Select(blog => new BlogListItemVM
+            var blogsFromDb = await Db.Blogs.Select(blogFromDb => new BlogListItemVM
             {
-                Id = blog.Id,
-                Title = blog.Title,
-                Author = blog.Author,
-                Description = blog.Description,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
+                Id = blogFromDb.Id,
+                Title = blogFromDb.Title,
+                Author = blogFromDb.Author,
+                Description = blogFromDb.Description,
             }).ToListAsync();
 
             return View(blogsFromDb);
@@ -50,23 +47,20 @@ namespace nov30task.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BlogCreateVM vm)
         {
-            ViewBag.Authors = new SelectList(Db.Authors, "Id", "Name");
-
             if (!ModelState.IsValid)
             {
+                ViewBag.Authors = new SelectList(Db.Authors, "Id", "Name");
                 return View(vm);
             }
 
-            Blog blogToCreate = new()
+            Blog blogCreate = new()
             {
                 Title = vm.Title,
                 Description = vm.Description,
-                AuthorId = vm.AuthorId,
-                CreatedAt = vm.CreatedAt,
-                UpdatedAt = vm.UpdatedAt,
+                AuthorId = vm.AuthorId >= 1 ? vm.AuthorId : null,
             };
 
-            await Db.Blogs.AddAsync(blogToCreate);
+            await Db.Blogs.AddAsync(blogCreate);
             await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -85,40 +79,38 @@ namespace nov30task.Areas.Admin.Controllers
 
             if (blogFromDb == null) return NotFound();
 
-            BlogUpdateVM blogToUpdate = new()
+            BlogUpdateVM blogUpdateViewModel = new()
             {
-                UpdatedAt = blogFromDb.UpdatedAt,
-                CreatedAt = blogFromDb.UpdatedAt,
                 Description = blogFromDb.Description,
                 AuthorId = blogFromDb.AuthorId,
                 Title = blogFromDb.Title,
             };
 
-            return View(blogToUpdate);
+            return View(blogUpdateViewModel);
         }
 
         // Post
         [HttpPost]
-        public async Task<IActionResult> Update(int? id, BlogUpdateVM vm)
+        public async Task<IActionResult> Update(int? id, BlogUpdateVM blogUpdateViewModel)
         {
             if (id == null || id <= 0) return BadRequest();
 
             if (!ModelState.IsValid)
             {
                 ViewBag.Authors = new SelectList(Db.Authors, "Id", "Name");
-                return View(vm);
-
+                return View(blogUpdateViewModel);
             }
+
+            /*var author = await Db.Authors.FindAsync(blogUpdateViewModel.AuthorId);*/
 
             var blogFromDb = await Db.Blogs.FindAsync(id);
 
             if (blogFromDb == null) return NotFound();
 
-            blogFromDb.UpdatedAt = vm.UpdatedAt;
-            blogFromDb.AuthorId = vm.AuthorId;
-            blogFromDb.Description = vm.Description;
-            blogFromDb.Title = vm.Title;
-            blogFromDb.CreatedAt = vm.CreatedAt;
+            blogFromDb.AuthorId = blogUpdateViewModel.AuthorId;
+            blogFromDb.Description = blogUpdateViewModel.Description;
+            blogFromDb.Title = blogUpdateViewModel.Title;
+
 
             await Db.SaveChangesAsync();
 

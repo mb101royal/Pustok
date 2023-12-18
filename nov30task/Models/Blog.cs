@@ -16,7 +16,7 @@ namespace nov30task.Models
         public DateTime? UpdatedAt { get; set; }
         public int? AuthorId { get; set; }
         public Author? Author { get; set; }
-        public ICollection<BlogTag>? BlogTags { get; set; }
+        public ICollection<Tag>? Tags { get; set; }
         public bool? IsDeleted { get; set; } = false;
     }
 }

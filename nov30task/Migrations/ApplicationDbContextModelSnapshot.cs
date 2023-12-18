@@ -22,6 +22,21 @@ namespace nov30task.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("BlogTag", b =>
+                {
+                    b.Property<int>("BlogsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BlogsId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("BlogTag");
+                });
+
             modelBuilder.Entity("nov30task.Models.Author", b =>
                 {
                     b.Property<int>("Id")
@@ -41,7 +56,7 @@ namespace nov30task.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("nov30task.Models.Blog", b =>
@@ -77,30 +92,7 @@ namespace nov30task.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Blogs", (string)null);
-                });
-
-            modelBuilder.Entity("nov30task.Models.BlogTag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("BlogTag", (string)null);
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("nov30task.Models.Book", b =>
@@ -128,6 +120,7 @@ namespace nov30task.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -147,7 +140,7 @@ namespace nov30task.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("nov30task.Models.BookImage", b =>
@@ -171,7 +164,7 @@ namespace nov30task.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookImages", (string)null);
+                    b.ToTable("BookImages");
                 });
 
             modelBuilder.Entity("nov30task.Models.Category", b =>
@@ -196,7 +189,7 @@ namespace nov30task.Migrations
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("nov30task.Models.Slider", b =>
@@ -231,7 +224,7 @@ namespace nov30task.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sliders", (string)null);
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("nov30task.Models.Tag", b =>
@@ -248,7 +241,22 @@ namespace nov30task.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("BlogTag", b =>
+                {
+                    b.HasOne("nov30task.Models.Blog", null)
+                        .WithMany()
+                        .HasForeignKey("BlogsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nov30task.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("nov30task.Models.Blog", b =>
@@ -258,21 +266,6 @@ namespace nov30task.Migrations
                         .HasForeignKey("AuthorId");
 
                     b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("nov30task.Models.BlogTag", b =>
-                {
-                    b.HasOne("nov30task.Models.Blog", null)
-                        .WithMany("BlogTags")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("nov30task.Models.Tag", null)
-                        .WithMany("BlogsTag")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("nov30task.Models.Book", b =>
@@ -311,19 +304,9 @@ namespace nov30task.Migrations
                     b.Navigation("Blogs");
                 });
 
-            modelBuilder.Entity("nov30task.Models.Blog", b =>
-                {
-                    b.Navigation("BlogTags");
-                });
-
             modelBuilder.Entity("nov30task.Models.Category", b =>
                 {
                     b.Navigation("Books");
-                });
-
-            modelBuilder.Entity("nov30task.Models.Tag", b =>
-                {
-                    b.Navigation("BlogsTag");
                 });
 #pragma warning restore 612, 618
         }

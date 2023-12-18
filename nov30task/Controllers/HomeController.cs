@@ -6,22 +6,20 @@ namespace nov30task.Controllers
 {
     public class HomeController : Controller
     {
-        PustokDbContext _context { get; }
+        PustokDbContext Db { get; }
 
-        public HomeController(PustokDbContext context)
+        public HomeController(PustokDbContext db)
         {
-            _context = context;
+            Db = db;
         }
 
         public async Task<IActionResult> Index()
         {
-            var sliders = await _context.Sliders.ToListAsync();
+            var sliders = await Db.Sliders.ToListAsync();
             return View(sliders);
         }
 
-
-
-        public string GetSession(string key)
+        /*public string GetSession(string key)
         {
             return HttpContext.Session.GetString(key) ?? "";
             //HttpContext.Session.Remove(key);
@@ -45,7 +43,7 @@ namespace nov30task.Controllers
                 // Expires = DateTime.UtcNow.AddDays(10)
             }) ;
             // HttpContext.Response.Cookies.Delete(key);
-        }
+        }*/
 
     }
 }

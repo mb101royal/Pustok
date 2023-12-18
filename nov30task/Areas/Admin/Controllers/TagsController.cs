@@ -10,7 +10,6 @@ namespace nov30task.Areas.Admin.Controllers
     [Area("Admin")]
     public class TagsController : Controller
     {
-
         PustokDbContext Db { get; }
 
         public TagsController(PustokDbContext db)
@@ -23,10 +22,10 @@ namespace nov30task.Areas.Admin.Controllers
         public IActionResult Index()
         {
 
-            var tagsFromDb = Db.Tags.Select(tag => new TagListItemVM
+            var tagsFromDb = Db.Tags.Select(tagFromDb => new TagListItemVM
             {
-                Id = tag.Id,
-                Name = tag.Name
+                Id = tagFromDb.Id,
+                Name = tagFromDb.Name
             }).ToList();
 
             return View(tagsFromDb);
@@ -42,19 +41,19 @@ namespace nov30task.Areas.Admin.Controllers
         
         // Post
         [HttpPost]
-        public async Task<IActionResult> Create(TagCreateVM vm)
+        public async Task<IActionResult> Create(TagCreateVM tagCreateViewModel)
         {
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid) return View(tagCreateViewModel);
 
-            var nameInDb = await Db.Tags.FirstOrDefaultAsync(n=> n.Name == vm.Name);
+            var nameInDb = await Db.Tags.FirstOrDefaultAsync(n=> n.Name == tagCreateViewModel.Name);
 
             if (nameInDb != null)
             {
-                if (nameInDb.Name != vm.Name)
+                if (nameInDb.Name != tagCreateViewModel.Name)
                 {
-                    Tag tagToCreate = new() { Name = vm.Name };
+                    Tag tagCreate = new() { Name = tagCreateViewModel.Name };
 
-                    await Db.Tags.AddAsync(tagToCreate);
+                    await Db.Tags.AddAsync(tagCreate);
                     await Db.SaveChangesAsync();
 
                     return RedirectToAction(nameof(Index));
@@ -62,14 +61,14 @@ namespace nov30task.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError("Name", "Name is repeated");
-                    return View(vm);
+                    return View(tagCreateViewModel);
                 }
             }
             else
             {
-                Tag tagToCreate = new() { Name = vm.Name };
+                Tag tagCreate = new() { Name = tagCreateViewModel.Name };
 
-                await Db.Tags.AddAsync(tagToCreate);
+                await Db.Tags.AddAsync(tagCreate);
                 await Db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -88,30 +87,30 @@ namespace nov30task.Areas.Admin.Controllers
 
             if (tagFromDb == null) return NotFound();
 
-            var tagToUpdate = new TagUpdateVM { Name = tagFromDb.Name };
+            var tagUpdateViewModel = new TagUpdateVM { Name = tagFromDb.Name };
 
-            return View(tagToUpdate);
+            return View(tagUpdateViewModel);
         }
         
         // Post
         [HttpPost]
-        public async Task<IActionResult> Update(int? id, TagUpdateVM vm)
+        public async Task<IActionResult> Update(int? id, TagUpdateVM tagUpdateViewModel)
         {
             if (id == null || id <= 0) return BadRequest();
 
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid) return View(tagUpdateViewModel);
 
             var tagFromDb = await Db.Tags.FindAsync(id);
             
             if (tagFromDb == null) return NotFound();
 
-            var nameInDb = await Db.Tags.FirstOrDefaultAsync(n => n.Name == vm.Name);
+            var nameInDb = await Db.Tags.FirstOrDefaultAsync(tagFromDb => tagFromDb.Name == tagUpdateViewModel.Name);
 
             if (nameInDb != null)
             {
-                if (nameInDb.Name != vm.Name)
+                if (nameInDb.Name != tagUpdateViewModel.Name)
                 {
-                    tagFromDb.Name = vm.Name;
+                    tagFromDb.Name = tagUpdateViewModel.Name;
 
                     await Db.SaveChangesAsync();
 
@@ -120,12 +119,12 @@ namespace nov30task.Areas.Admin.Controllers
                 else
                 {
                     ModelState.AddModelError("Name", "Name is repeated");
-                    return View(vm);
+                    return View(tagUpdateViewModel);
                 }
             }
             else
             {
-                tagFromDb.Name = vm.Name;
+                tagFromDb.Name = tagUpdateViewModel.Name;
 
                 await Db.SaveChangesAsync();
 

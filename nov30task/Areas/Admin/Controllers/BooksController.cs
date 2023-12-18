@@ -11,9 +11,7 @@ namespace nov30task.Areas.Admin.Controllers
 	[Area("Admin")]
 	public class BooksController : Controller
 	{
-
         PustokDbContext Db { get; }
-
         IWebHostEnvironment WebHostEnvironment {  get; }
 
         public BooksController(PustokDbContext db, IWebHostEnvironment webHostEnvironment)
@@ -26,19 +24,19 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
 		{
-            var booksFromDb = await Db.Books.Select(p => new BookListItemVM
+            var booksFromDb = await Db.Books.Select(bookFromDb => new BookListItemVM
             {
-                Id = p.Id,
-                Name = p.Name,
-                CostPrice = p.CostPrice,
-                SellPrice = p.SellPrice,
-                Discount = p.Discount,
-                Category = p.Category,
-                IsDeleted = p.IsDeleted,
-                Quantity = p.Quantity,
-                About = p.About,
-                Description = p.Description,
-                ImageUrl = p.ImageUrl,
+                Id = bookFromDb.Id,
+                Name = bookFromDb.Name,
+                CostPrice = bookFromDb.CostPrice,
+                SellPrice = bookFromDb.SellPrice,
+                Discount = bookFromDb.Discount,
+                Category = bookFromDb.Category,
+                IsDeleted = bookFromDb.IsDeleted,
+                Quantity = bookFromDb.Quantity,
+                About = bookFromDb.About,
+                Description = bookFromDb.Description,
+                ImageUrl = bookFromDb.ImageUrl,
             }).ToListAsync();
 
             return base.View(booksFromDb);
@@ -49,34 +47,34 @@ namespace nov30task.Areas.Admin.Controllers
         // Get
 		public IActionResult Create()
 		{
-
             ViewBag.Categories = new SelectList(Db.Categories, "Id", "Name");
-
             return View();
 		}
 
         // Post
         [HttpPost]
-        public async Task<IActionResult> Create(BookCreateVM vm)
+        public async Task<IActionResult> Create(BookCreateVM bookCreateViewModel)
         {
-            ViewBag.Categories = new SelectList(Db.Categories, "Id", "Name");
-
-            if (!ModelState.IsValid) return View(vm);
-
-            Book bookToCreate = new()
+            if (!ModelState.IsValid)
             {
-                Name = vm.Name,
-                About = vm.About,
-                CostPrice = vm.CostPrice,
-                Description = vm.Description,
-                Discount = vm.Discount,
-                ImageUrl = vm.ImageUrl,
-                Quantity = vm.Quantity,
-                SellPrice = vm.SellPrice,
-                CategoryId = vm.CategoryId,
+                ViewBag.Categories = new SelectList(Db.Categories, "Id", "Name");
+                return View(bookCreateViewModel);
             }
 
-            await Db.Books.AddAsync(bookToCreate);
+            Book bookCreate = new()
+            {
+                Name = bookCreateViewModel.Name,
+                About = bookCreateViewModel.About,
+                CostPrice = bookCreateViewModel.CostPrice,
+                Description = bookCreateViewModel.Description,
+                Discount = bookCreateViewModel.Discount,
+                ImageUrl = bookCreateViewModel.ImageUrl,
+                Quantity = bookCreateViewModel.Quantity,
+                SellPrice = bookCreateViewModel.SellPrice,
+                CategoryId = bookCreateViewModel.CategoryId,
+            };
+
+            await Db.Books.AddAsync(bookCreate);
             await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -95,7 +93,7 @@ namespace nov30task.Areas.Admin.Controllers
 
             if (bookFromDb == null) return NotFound();
 
-            BookListItemVM bookToUpdate = new()
+            BookUpdateVM bookUpdateViewModel = new()
             {
                 Description = bookFromDb.Description,
                 CategoryId = bookFromDb.CategoryId,
@@ -105,34 +103,39 @@ namespace nov30task.Areas.Admin.Controllers
                 Name = bookFromDb.Name,
                 Quantity = bookFromDb.Quantity,
                 SellPrice = bookFromDb.SellPrice,
+                ImageUrl = bookFromDb.ImageUrl
             };
 
-            return View(bookToUpdate);
+            return View(bookUpdateViewModel);
         }
 
         // Post
         [HttpPost]
-        public async Task<IActionResult> Update(int id, BookUpdateVM vm)
+        public async Task<IActionResult> Update(int id, BookUpdateVM bookUpdateViewModel)
         {
             if (id <= 0) return BadRequest();
 
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.CategoryId = new SelectList(Db.Categories, "Id", "Name");
+                return View(bookUpdateViewModel);
+            } 
 
-            var book = await _db.Books.FindAsync(id);
+            var bookFromDb = await Db.Books.FindAsync(id);
 
-            if (book == null) return NotFound();
+            if (bookFromDb == null) return NotFound();
 
-            book.Name = vm.Name;
-            book.ImageUrl = vm.ImageUrl;
-            book.Quantity = vm.Quantity;
-            book.SellPrice = vm.SellPrice;
-            book.Discount = vm.Discount;
-            book.CategoryId = vm.CategoryId;
-            book.About = vm.About;
-            book.CostPrice = vm.CostPrice;
-            book.Description = vm.Description;
+            bookFromDb.Name = bookUpdateViewModel.Name;
+            bookFromDb.ImageUrl = bookUpdateViewModel.ImageUrl;
+            bookFromDb.Quantity = bookUpdateViewModel.Quantity;
+            bookFromDb.SellPrice = bookUpdateViewModel.SellPrice;
+            bookFromDb.Discount = bookUpdateViewModel.Discount;
+            bookFromDb.CategoryId = bookUpdateViewModel.CategoryId;
+            bookFromDb.About = bookUpdateViewModel.About;
+            bookFromDb.CostPrice = bookUpdateViewModel.CostPrice;
+            bookFromDb.Description = bookUpdateViewModel.Description;
 
-            await _db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
@@ -141,9 +144,9 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null) return NotFound();
 
-            var book = await _db.Books.Include(b => b.Category).Include(b => b.ImageUrl).FirstOrDefaultAsync(b => b.Id == id);
+            var bookFromDb = await Db.Books.Include(b => b.Category).Include(b => b.ImageUrl).FirstOrDefaultAsync(b => b.Id == id);
 
-            if (book == null) return NotFound();
+            if (bookFromDb == null) return NotFound();
 
             return RedirectToAction(nameof(Index));
         }

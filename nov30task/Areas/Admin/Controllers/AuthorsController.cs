@@ -8,7 +8,6 @@ using nov30task.ViewModels.SlidersVM;
 namespace nov30task.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
     public class AuthorsController : Controller
     {
         PustokDbContext Db { get; }
@@ -22,11 +21,11 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var authorsFromDb = await Db.Authors.Select(a => new AuthorListItemVM
+            var authorsFromDb = await Db.Authors.Select(authorFromDb => new AuthorListItemVM
             {
-                Id = a.Id,
-                Name = a.Name,
-                Surname = a.Surname,
+                Id = authorFromDb.Id,
+                Name = authorFromDb.Name,
+                Surname = authorFromDb.Surname,
             }).ToListAsync();
 
             return View(authorsFromDb);
@@ -42,17 +41,17 @@ namespace nov30task.Areas.Admin.Controllers
 
         // Post
         [HttpPost]
-        public async Task<IActionResult> Create(AuthorCreateVM vm)
+        public async Task<IActionResult> Create(AuthorCreateVM authorCreateViewModel)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            Author author = new()
+            Author authorCreate = new()
             {
-                Name = vm.Name,
-                Surname = vm.Surname,
+                Name = authorCreateViewModel.Name,
+                Surname = authorCreateViewModel.Surname,
             };
 
-            await Db.AddAsync(author);
+            await Db.AddAsync(authorCreate);
             await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -65,33 +64,33 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null || id <= 0) return BadRequest();
 
-            var data = await Db.Authors.FindAsync(id);
+            var authorFromDb = await Db.Authors.FindAsync(id);
 
-            if (data == null) return NotFound();
+            if (authorFromDb == null) return NotFound();
 
-            var authorUpdate = new AuthorUpdateVM
+            AuthorUpdateVM authorUpdateViewModel = new()
             {
-                Name = data.Name,
-                Surname = data.Surname,
+                Name = authorFromDb.Name,
+                Surname = authorFromDb.Surname,
             };
 
-            return View(authorUpdate);
+            return View(authorUpdateViewModel);
         }
 
         // Post
         [HttpPost]
-        public async Task<IActionResult> Update(int? id, AuthorUpdateVM vm)
+        public async Task<IActionResult> Update(int? id, AuthorUpdateVM authorUpdateViewModel)
         {
             if (id == null || id <= 0) return BadRequest();
 
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid) return View(authorUpdateViewModel);
 
-            var author = await Db.Authors.FindAsync(id);
+            var authorFromDb = await Db.Authors.FindAsync(id);
 
-            if (author == null) return NotFound();
+            if (authorFromDb == null) return NotFound();
 
-            author.Name = vm.Name;
-            author.Surname = vm.Surname;
+            authorFromDb.Name = authorUpdateViewModel.Name;
+            authorFromDb.Surname = authorUpdateViewModel.Surname;
 
             await Db.SaveChangesAsync();
 
@@ -104,11 +103,11 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null || id <= 0) return BadRequest();
 
-            var authorToDelete = await Db.Authors.FindAsync(id);
+            var authorFromDb = await Db.Authors.FindAsync(id);
 
-            if (authorToDelete == null) return NotFound();
+            if (authorFromDb == null) return NotFound();
 
-            Db.Authors.Remove(authorToDelete);
+            Db.Authors.Remove(authorFromDb);
             await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
