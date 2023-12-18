@@ -103,13 +103,6 @@ namespace nov30task.Areas.Admin.Controllers
         {
 
             if (id == null || id <= 0) return BadRequest();
-<<<<<<< HEAD
-=======
-
-            if (vm.Position < -1 || vm.Position > 1) ModelState.AddModelError("Position", "Xeta");
-
-            if (!ModelState.IsValid) return View(vm);
->>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
 
             if (vm.Position < 0 || vm.Position > 1) ModelState.AddModelError("Position", "Xeta");
 

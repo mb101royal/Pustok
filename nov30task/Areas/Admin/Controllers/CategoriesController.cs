@@ -21,15 +21,11 @@ namespace nov30task.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-<<<<<<< HEAD
             var CaregoriesFromDb = await Db.Categories.Select(category => new CategoryListVM
             {
                 Id = category.Id,
                 Name = category.Name
             }).ToListAsync();
-=======
-            var CaregoriesFromDb = await _db.Categories.Select(c => new CategoryListItemVM { Id = c.Id, Name = c.Name }).ToListAsync();
->>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
 
             return View(CaregoriesFromDb);
         }

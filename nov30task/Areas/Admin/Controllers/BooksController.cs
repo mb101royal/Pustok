@@ -49,12 +49,9 @@ namespace nov30task.Areas.Admin.Controllers
         // Get
 		public IActionResult Create()
 		{
-<<<<<<< HEAD
-            ViewBag.Categories = new SelectList(Db.Categories, "Id", "Name");
-=======
-            ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name");
 
->>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
+            ViewBag.Categories = new SelectList(Db.Categories, "Id", "Name");
+
             return View();
 		}
 
@@ -77,15 +74,7 @@ namespace nov30task.Areas.Admin.Controllers
                 Quantity = vm.Quantity,
                 SellPrice = vm.SellPrice,
                 CategoryId = vm.CategoryId,
-<<<<<<< HEAD
-            };
-
-=======
-
-            };
-
-            ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
->>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
+            }
 
             await Db.Books.AddAsync(bookToCreate);
             await Db.SaveChangesAsync();
@@ -104,7 +93,6 @@ namespace nov30task.Areas.Admin.Controllers
 
             var bookFromDb = await Db.Books.FindAsync(id);
 
-<<<<<<< HEAD
             if (bookFromDb == null) return NotFound();
 
             BookListItemVM bookToUpdate = new()
@@ -120,24 +108,6 @@ namespace nov30task.Areas.Admin.Controllers
             };
 
             return View(bookToUpdate);
-=======
-            ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
-            
-            var getBook = new BookUpdateVM
-            {
-                About = book.About,
-                CostPrice = book.CostPrice,
-                Description = book.Description,
-                CategoryId = book.CategoryId,
-                Discount = book.Discount,
-                ImageUrl = book.ImageUrl,
-                Name = book.Name,
-                Quantity = book.Quantity,
-                SellPrice = book.SellPrice,
-            };
-
-            return View(getBook);
->>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
         }
 
         // Post
