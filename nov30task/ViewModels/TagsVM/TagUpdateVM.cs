@@ -5,6 +5,6 @@ namespace nov30task.ViewModels.TagsVM
     public class TagUpdateVM
     {
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

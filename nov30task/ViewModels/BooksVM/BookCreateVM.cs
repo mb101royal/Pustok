@@ -7,7 +7,7 @@ namespace nov30task.ViewModels.BooksVM
     public class BookCreateVM
     {
         [MaxLength(64)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [MaxLength(128)]
         public string? About { get; set; }
 
@@ -19,7 +19,7 @@ namespace nov30task.ViewModels.BooksVM
         [Range(0, 100)]
         public float Discount { get; set; }
         public ushort Quantity { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public int CategoryId { get; set; }
     }
 }

@@ -52,18 +52,17 @@ namespace nov30task.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AuthorId")
+                    b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
@@ -71,7 +70,7 @@ namespace nov30task.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -97,8 +96,9 @@ namespace nov30task.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TagId")
-                        .IsUnique();
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("TagId");
 
                     b.ToTable("BlogTag", (string)null);
                 });
@@ -128,14 +128,12 @@ namespace nov30task.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
@@ -164,7 +162,6 @@ namespace nov30task.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -189,7 +186,6 @@ namespace nov30task.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
 
@@ -259,18 +255,22 @@ namespace nov30task.Migrations
                 {
                     b.HasOne("nov30task.Models.Author", "Author")
                         .WithMany("Blogs")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorId");
 
                     b.Navigation("Author");
                 });
 
             modelBuilder.Entity("nov30task.Models.BlogTag", b =>
                 {
+                    b.HasOne("nov30task.Models.Blog", null)
+                        .WithMany("BlogTags")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("nov30task.Models.Tag", null)
-                        .WithOne("BlogTags")
-                        .HasForeignKey("nov30task.Models.BlogTag", "TagId")
+                        .WithMany("BlogsTag")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -311,6 +311,11 @@ namespace nov30task.Migrations
                     b.Navigation("Blogs");
                 });
 
+            modelBuilder.Entity("nov30task.Models.Blog", b =>
+                {
+                    b.Navigation("BlogTags");
+                });
+
             modelBuilder.Entity("nov30task.Models.Category", b =>
                 {
                     b.Navigation("Books");
@@ -318,8 +323,7 @@ namespace nov30task.Migrations
 
             modelBuilder.Entity("nov30task.Models.Tag", b =>
                 {
-                    b.Navigation("BlogTags")
-                        .IsRequired();
+                    b.Navigation("BlogsTag");
                 });
 #pragma warning restore 612, 618
         }

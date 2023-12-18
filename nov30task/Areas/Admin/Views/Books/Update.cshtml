@@ -46,16 +46,28 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId"></label>
+<<<<<<< HEAD
+                <select class="select-item" asp-for="CategoryId" asp-items='@ViewBag.CategoryId' class="form-control">
+=======
                 <select class="select-item" asp-for="CategoryId" asp-items='ViewBag.Categories' class="form-control">
+>>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
                     <option disabled selected>Select Category</option>
                 </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
+<<<<<<< HEAD
+            @* <div class="form-group">
+                <label asp-for="ImageFile"></label>
+                <input asp-for="ImageFile" class="form-control">
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div> *@
+=======
             <div class="form-group">
                 <label asp-for="ImageUrl"></label>
                 <input asp-for="ImageUrl" class="form-control">
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
+>>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
             <button class="btn btn-success">Submit!</button>
         </form>
     </div>

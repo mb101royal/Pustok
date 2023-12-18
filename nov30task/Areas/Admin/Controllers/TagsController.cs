@@ -11,19 +11,19 @@ namespace nov30task.Areas.Admin.Controllers
     public class TagsController : Controller
     {
 
-        PustokDbContext _db { get; }
+        PustokDbContext Db { get; }
 
         public TagsController(PustokDbContext db)
         {
-            _db = db;
+            Db = db;
         }
 
-        // Index
+        // Index:
 
         public IActionResult Index()
         {
 
-            var tagsFromDb = _db.Tags.Select(tag => new TagListItemVM
+            var tagsFromDb = Db.Tags.Select(tag => new TagListItemVM
             {
                 Id = tag.Id,
                 Name = tag.Name
@@ -46,15 +46,16 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) return View(vm);
 
-            var nameInDb = await _db.Tags.FirstOrDefaultAsync(n=> n.Name == vm.Name);
+            var nameInDb = await Db.Tags.FirstOrDefaultAsync(n=> n.Name == vm.Name);
+
             if (nameInDb != null)
             {
                 if (nameInDb.Name != vm.Name)
                 {
-                    Tag tagCreate = new Tag { Name = vm.Name };
+                    Tag tagToCreate = new() { Name = vm.Name };
 
-                    await _db.Tags.AddAsync(tagCreate);
-                    await _db.SaveChangesAsync();
+                    await Db.Tags.AddAsync(tagToCreate);
+                    await Db.SaveChangesAsync();
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -66,10 +67,10 @@ namespace nov30task.Areas.Admin.Controllers
             }
             else
             {
-                Tag tagCreate = new Tag { Name = vm.Name };
+                Tag tagToCreate = new() { Name = vm.Name };
 
-                await _db.Tags.AddAsync(tagCreate);
-                await _db.SaveChangesAsync();
+                await Db.Tags.AddAsync(tagToCreate);
+                await Db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -83,13 +84,13 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null || id <= 0) return BadRequest();
 
-            var tag = await _db.Tags.FindAsync(id);
+            var tagFromDb = await Db.Tags.FindAsync(id);
 
-            if (tag == null) return NotFound();
+            if (tagFromDb == null) return NotFound();
 
-            var tagUpdate = new TagUpdateVM { Name = tag.Name };
+            var tagToUpdate = new TagUpdateVM { Name = tagFromDb.Name };
 
-            return View(tagUpdate);
+            return View(tagToUpdate);
         }
         
         // Post
@@ -100,18 +101,19 @@ namespace nov30task.Areas.Admin.Controllers
 
             if (!ModelState.IsValid) return View(vm);
 
-            var tag = await _db.Tags.FindAsync(id);
+            var tagFromDb = await Db.Tags.FindAsync(id);
             
-            if (tag == null) return NotFound();
+            if (tagFromDb == null) return NotFound();
 
-            var nameInDb = await _db.Tags.FirstOrDefaultAsync(n => n.Name == vm.Name);
+            var nameInDb = await Db.Tags.FirstOrDefaultAsync(n => n.Name == vm.Name);
+
             if (nameInDb != null)
             {
                 if (nameInDb.Name != vm.Name)
                 {
-                    tag.Name = vm.Name;
+                    tagFromDb.Name = vm.Name;
 
-                    await _db.SaveChangesAsync();
+                    await Db.SaveChangesAsync();
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -123,9 +125,9 @@ namespace nov30task.Areas.Admin.Controllers
             }
             else
             {
-                tag.Name = vm.Name;
+                tagFromDb.Name = vm.Name;
 
-                await _db.SaveChangesAsync();
+                await Db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -136,13 +138,13 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null) return BadRequest();
            
-            var data = await _db.Tags.FindAsync(id);
+            var tagFromDb = await Db.Tags.FindAsync(id);
             
-            if (data == null) return NotFound();
+            if (tagFromDb == null) return NotFound();
 
-            _db.Tags.Remove(data);
+            Db.Tags.Remove(tagFromDb);
 
-            await _db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }

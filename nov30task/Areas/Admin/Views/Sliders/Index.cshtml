@@ -1,4 +1,4 @@
-﻿@model List<SliderListItemVM>
+﻿@model IEnumerable<SliderListItemVM>
 @{
     ViewData["Title"] = "Slider";
 }
@@ -6,7 +6,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Sliders</h6>
-        <a href="/Admin/Sliders/Create" class="btn btn-outline-success">Create</a>
+        <a asp-action="Create" class="btn btn-outline-success">Create</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -30,7 +30,7 @@
                                 <td>@item.Title</td>
                                 <td>@item.Text</td>
                                 <td><img width="200" src="@item.ImageUrl" /></td>
-                                <td>@(item.Position == false ? "left" : "right")</td>
+                                <td>@(item.Position == false ? "Left" : "Right")</td>
                                 <td>@item.ButtonText</td>
                                 <td class="text-center"><a class="btn btn-outline-info" asp-action="Update" asp-route-id="@item.Id">Update</a></td>
                                 <td class="text-center"><a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>

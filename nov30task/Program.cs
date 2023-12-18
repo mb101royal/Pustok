@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PustokDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:MSSql"]);
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSql"));
 });
 
 builder.Services.AddSession();

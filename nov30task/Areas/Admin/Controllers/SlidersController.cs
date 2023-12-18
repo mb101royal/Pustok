@@ -9,11 +9,11 @@ namespace nov30task.Areas.Admin.Controllers
     [Area("Admin")]
     public class SlidersController : Controller
     {
-        PustokDbContext _db { get; }
+        PustokDbContext Db { get; }
 
         public SlidersController(PustokDbContext db)
         {
-            _db = db;
+            Db = db;
         }
 
         // Index:
@@ -21,7 +21,7 @@ namespace nov30task.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var slidersFromDb = await _db.Sliders.Select(slider => new SliderListItemVM
+            var slidersFromDb = await Db.Sliders.Select(slider => new SliderListItemVM
             {
                 Id = slider.Id,
                 Title = slider.Title,
@@ -46,17 +46,11 @@ namespace nov30task.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(SliderCreateVM vm)
         {
-            if (vm.Position == null)
-            {
-                ModelState.AddModelError("Position", "Xeta");
-            }
+            if (vm.Position > 1 || vm.Position < 0) ModelState.AddModelError("Position", "Xeta");
 
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
+            if (!ModelState.IsValid) return View(vm);
 
-            Slider slider = new Slider
+            Slider sliderToCreate = new()
             {
                 Title = vm.Title,
                 Text = vm.Text,
@@ -64,13 +58,14 @@ namespace nov30task.Areas.Admin.Controllers
                 Position = vm.Position switch
                 {
                     0 => false,
-                    1 => true
+                    1 => true,
+                    _ => throw new NotImplementedException(),
                 },
                 ButtonText = vm.ButtonText,
             };
 
-            await _db.Sliders.AddAsync(slider);
-            await _db.SaveChangesAsync();
+            await Db.Sliders.AddAsync(sliderToCreate);
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
@@ -82,24 +77,24 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null || id <= 0) return BadRequest();
 
-            var data = await _db.Sliders.FindAsync(id);
+            var sliderFromDb = await Db.Sliders.FindAsync(id);
 
-            if (data == null) return NotFound();
-            
-            var sliderUpdate = new SliderUpdateVM
+            if (sliderFromDb == null) return NotFound();
+
+            SliderUpdateVM sliderToUpdate = new()
             {
-                ImageUrl = data.ImageUrl,
-                Position = data.Position switch
+                ImageUrl = sliderFromDb.ImageUrl,
+                Position = sliderFromDb.Position switch
                 {
                     false => 0,
                     true => 1
                 },
-                Text = data.Text,
-                Title = data.Title,
-                ButtonText = data.ButtonText
+                Text = sliderFromDb.Text,
+                Title = sliderFromDb.Title,
+                ButtonText = sliderFromDb.ButtonText
             };
 
-            return View(sliderUpdate);
+            return View(sliderToUpdate);
         }
 
         // Post
@@ -108,26 +103,34 @@ namespace nov30task.Areas.Admin.Controllers
         {
 
             if (id == null || id <= 0) return BadRequest();
+<<<<<<< HEAD
+=======
 
             if (vm.Position < -1 || vm.Position > 1) ModelState.AddModelError("Position", "Xeta");
 
             if (!ModelState.IsValid) return View(vm);
+>>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
 
-            var slider = await _db.Sliders.FindAsync(id);
+            if (vm.Position < 0 || vm.Position > 1) ModelState.AddModelError("Position", "Xeta");
 
-            if (slider == null) return NotFound();
+            if (!ModelState.IsValid) return View(vm);
 
-            slider.Text = vm.Text;
-            slider.Title = vm.Title;
-            slider.ImageUrl = vm.ImageUrl;
-            slider.ButtonText = vm.ButtonText;
-            slider.Position = vm.Position switch
+            var sliderFromDb = await Db.Sliders.FindAsync(id);
+
+            if (sliderFromDb == null) return NotFound();
+
+            sliderFromDb.Text = vm.Text;
+            sliderFromDb.Title = vm.Title;
+            sliderFromDb.ImageUrl = vm.ImageUrl;
+            sliderFromDb.ButtonText = vm.ButtonText;
+            sliderFromDb.Position = vm.Position switch
             {
                 0 => false,
-                1 => true
+                1 => true,
+                _ => throw new NotImplementedException()
             };
 
-            await _db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
@@ -137,11 +140,13 @@ namespace nov30task.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return BadRequest();
-            var data = await _db.Sliders.FindAsync(id);
-            if (data == null) return NotFound();
 
-            _db.Sliders.Remove(data);
-            await _db.SaveChangesAsync();
+            var sliderToDelete = await Db.Sliders.FindAsync(id);
+
+            if (sliderToDelete == null) return NotFound();
+
+            Db.Sliders.Remove(sliderToDelete);
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }

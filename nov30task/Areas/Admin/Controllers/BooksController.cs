@@ -12,21 +12,21 @@ namespace nov30task.Areas.Admin.Controllers
 	public class BooksController : Controller
 	{
 
-		PustokDbContext _db { get; }
+        PustokDbContext Db { get; }
 
-        IWebHostEnvironment _webHostEnvironment {  get; }
+        IWebHostEnvironment WebHostEnvironment {  get; }
 
         public BooksController(PustokDbContext db, IWebHostEnvironment webHostEnvironment)
         {
-            _db = db;
-            _webHostEnvironment = webHostEnvironment;
+            Db = db;
+            WebHostEnvironment = webHostEnvironment;
         }
 
         // Index:
 
         public async Task<IActionResult> Index()
 		{
-            var booksFromDb = await _db.Books.Select(p => new BookListItemVM
+            var booksFromDb = await Db.Books.Select(p => new BookListItemVM
             {
                 Id = p.Id,
                 Name = p.Name,
@@ -49,8 +49,12 @@ namespace nov30task.Areas.Admin.Controllers
         // Get
 		public IActionResult Create()
 		{
+<<<<<<< HEAD
+            ViewBag.Categories = new SelectList(Db.Categories, "Id", "Name");
+=======
             ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name");
 
+>>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
             return View();
 		}
 
@@ -58,12 +62,11 @@ namespace nov30task.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BookCreateVM vm)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
+            ViewBag.Categories = new SelectList(Db.Categories, "Id", "Name");
 
-            Book book = new Book
+            if (!ModelState.IsValid) return View(vm);
+
+            Book bookToCreate = new()
             {
                 Name = vm.Name,
                 About = vm.About,
@@ -74,13 +77,18 @@ namespace nov30task.Areas.Admin.Controllers
                 Quantity = vm.Quantity,
                 SellPrice = vm.SellPrice,
                 CategoryId = vm.CategoryId,
+<<<<<<< HEAD
+            };
+
+=======
 
             };
 
             ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
+>>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
 
-            await _db.Books.AddAsync(book);
-            await _db.SaveChangesAsync();
+            await Db.Books.AddAsync(bookToCreate);
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
@@ -92,10 +100,27 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null) return NotFound();
 
-            var book = await _db.Books.FindAsync(id);
+            ViewBag.CategoryId = new SelectList(Db.Categories, "Id", "Name");
 
-            if (book == null) return NotFound();
+            var bookFromDb = await Db.Books.FindAsync(id);
 
+<<<<<<< HEAD
+            if (bookFromDb == null) return NotFound();
+
+            BookListItemVM bookToUpdate = new()
+            {
+                Description = bookFromDb.Description,
+                CategoryId = bookFromDb.CategoryId,
+                About = bookFromDb.About,
+                CostPrice = bookFromDb.CostPrice,
+                Discount = bookFromDb.Discount,
+                Name = bookFromDb.Name,
+                Quantity = bookFromDb.Quantity,
+                SellPrice = bookFromDb.SellPrice,
+            };
+
+            return View(bookToUpdate);
+=======
             ViewBag.Categories = new SelectList(_db.Categories, "Id", "Name", book.CategoryId);
             
             var getBook = new BookUpdateVM
@@ -112,6 +137,7 @@ namespace nov30task.Areas.Admin.Controllers
             };
 
             return View(getBook);
+>>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
         }
 
         // Post

@@ -5,6 +5,6 @@ namespace nov30task.ViewModels.CategoriesVM
 {
     public class CategoryUpdateVM
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

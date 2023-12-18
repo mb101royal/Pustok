@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using nov30task.Context;
+using nov30task.Models;
 using nov30task.ViewModels.CategoriesVM;
 
 namespace nov30task.Areas.Admin.Controllers
@@ -9,23 +10,31 @@ namespace nov30task.Areas.Admin.Controllers
     public class CategoriesController : Controller
     {
 
-        PustokDbContext _db { get; }
+        PustokDbContext Db { get; }
 
         public CategoriesController(PustokDbContext db)
         {
-            _db = db;
+            Db = db;
         }
 
-        // Index
+        // Index:
 
         public async Task<IActionResult> Index()
         {
+<<<<<<< HEAD
+            var CaregoriesFromDb = await Db.Categories.Select(category => new CategoryListVM
+            {
+                Id = category.Id,
+                Name = category.Name
+            }).ToListAsync();
+=======
             var CaregoriesFromDb = await _db.Categories.Select(c => new CategoryListItemVM { Id = c.Id, Name = c.Name }).ToListAsync();
+>>>>>>> 1c03025e5f05c7c77e8ab41bf5db0c598bebb33f
 
             return View(CaregoriesFromDb);
         }
 
-        // Create
+        // Create:
 
         // Get
         public IActionResult Create()
@@ -37,17 +46,19 @@ namespace nov30task.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryCreateVM vm)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
-            if (await _db.Categories.AnyAsync(s => s.Name == vm.Name))
+            if (!ModelState.IsValid) return View(vm);
+
+            if (await Db.Categories.AnyAsync(s => s.Name == vm.Name))
             {
                 ModelState.AddModelError("Name", vm.Name + " adı artıq mövcuddur.");
                 return View(vm);
             }
-            await _db.Categories.AddAsync(new Models.Category { Name = vm.Name });
-            await _db.SaveChangesAsync();
+
+            Category categoryToCreate = new() {Name = vm.Name};
+
+            await Db.Categories.AddAsync(categoryToCreate);
+            await Db.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -58,13 +69,13 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null || id <= 0) return BadRequest();
 
-            var data = await _db.Categories.FindAsync(id);
+            var categoryFromDb = await Db.Categories.FindAsync(id);
 
-            if (data == null) return NotFound();
+            if (categoryFromDb == null) return NotFound();
 
-            var categoryUpdate = new CategoryUpdateVM { Name = data.Name };
+            CategoryUpdateVM categoryToUpdate = new() { Name = categoryFromDb.Name };
 
-            return View(categoryUpdate);
+            return View(categoryToUpdate);
         }
 
         // Post
@@ -75,13 +86,13 @@ namespace nov30task.Areas.Admin.Controllers
 
             if (!ModelState.IsValid) return View(vm);
 
-            var data = await _db.Categories.FindAsync(id);
+            var categoryFromDb = await Db.Categories.FindAsync(id);
 
-            if (data == null) return NotFound();
+            if (categoryFromDb == null) return NotFound();
 
-            data.Name = vm.Name;
+            categoryFromDb.Name = vm.Name;
 
-            await _db.SaveChangesAsync();
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
@@ -92,12 +103,12 @@ namespace nov30task.Areas.Admin.Controllers
         {
             if (id == null) return BadRequest();
             
-            var data = await _db.Categories.FindAsync(id);
+            var categoryToDelete = await Db.Categories.FindAsync(id);
             
-            if (data == null) return NotFound();
+            if (categoryToDelete == null) return NotFound();
             
-            _db.Categories.Remove(data);
-            await _db.SaveChangesAsync();
+            Db.Categories.Remove(categoryToDelete);
+            await Db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }

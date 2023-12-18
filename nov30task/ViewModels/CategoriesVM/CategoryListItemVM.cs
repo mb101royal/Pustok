@@ -7,7 +7,7 @@ namespace nov30task.ViewModels.CategoriesVM
     {
         public int Id { get; set; }
         [MaxLength(16)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
     }
 }
