@@ -9,121 +9,133 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = nov30task
 build_property.RootNamespace = nov30task
-build_property.ProjectDir = C:\Users\Birinci novbe\Desktop\CustomPustok\Pustok\nov30task\
+build_property.ProjectDir = C:\Users\Birinci Novbe\Desktop\Pustok\nov30task\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Birinci novbe\Desktop\CustomPustok\Pustok\nov30task
+build_property.MSBuildProjectDirectory = C:\Users\Birinci Novbe\Desktop\Pustok\nov30task
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Authors/Create.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Authors/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXV0aG9yc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Authors/Index.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Authors/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXV0aG9yc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Authors/Update.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Authors/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXV0aG9yc1xVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Blogs/Create.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Blogs/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Blogs/Index.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Blogs/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Blogs/Update.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Blogs/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ3NcVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Books/Create.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Books/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQm9va3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Books/Index.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Books/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQm9va3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Books/Update.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Books/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQm9va3NcVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Categories/Create.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Categories/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Categories/Index.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Categories/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Categories/Update.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Categories/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcmllc1xVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Shared/_Layout.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Sliders/Create.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Sliders/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2xpZGVyc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Sliders/Index.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Sliders/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2xpZGVyc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Sliders/Update.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Sliders/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2xpZGVyc1xVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Tags/Create.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Tags/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGFnc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Tags/Index.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Tags/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGFnc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/Tags/Update.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/Tags/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGFnc1xVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/_ViewImports.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Areas/Admin/Views/_ViewStart.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Areas/Admin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Views/Blog/Details.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/Account/MyAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxNeUFjY291bnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/Authentication/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVudGljYXRpb25cTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/Authentication/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVudGljYXRpb25cUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/Blog/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Views/Blog/Index.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/Blog/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Views/Home/Index.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Views/Shared/_BookPaginationPartial.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/Shared/_BookPaginationPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Cb29rUGFnaW5hdGlvblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Views/_ViewImports.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Views/_ViewStart.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Birinci novbe/Desktop/CustomPustok/Pustok/nov30task/Views/Shared/_Layout.cshtml]
+[C:/Users/Birinci Novbe/Desktop/Pustok/nov30task/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-d22oniv6jb

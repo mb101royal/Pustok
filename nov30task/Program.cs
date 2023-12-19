@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using nov30task.Context;
+using nov30task.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PustokDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MSSql"));
-});
+}).AddIdentity<AppUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedEmail = false;
+    options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz0123456789._";
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(12);
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+}).AddEntityFrameworkStores<PustokDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddSession();
 
