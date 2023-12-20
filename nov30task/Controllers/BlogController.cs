@@ -19,13 +19,15 @@ namespace nov30task.Controllers
             return View(blogs);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        // Not finished
+
+        /*public async Task<IActionResult> Details(int? id)
         {
             if (id == null || id < 0) return BadRequest();
 
             var detail = await Db.Blogs.FindAsync(id);
 
             return View(detail);
-        }
+        }*/
     }
 }

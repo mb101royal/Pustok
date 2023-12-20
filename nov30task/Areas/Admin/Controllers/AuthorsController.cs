@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using nov30task.Context;
 using nov30task.Models;
@@ -8,6 +9,7 @@ using nov30task.ViewModels.SlidersVM;
 namespace nov30task.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
     public class AuthorsController : Controller
     {
         PustokDbContext Db { get; }
@@ -18,7 +20,7 @@ namespace nov30task.Areas.Admin.Controllers
         }
 
         // Index:
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var authorsFromDb = await Db.Authors.Select(authorFromDb => new AuthorListItemVM

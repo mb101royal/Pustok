@@ -8,6 +8,7 @@
     <title>Pustok - Book Store HTML Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Use Minified Plugins Version For Fast Page Load -->
+    <title>Title</title>
     <link rel="stylesheet" type="text/css" media="screen" href="~/css/plugins.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="~/css/main.css" />
     <link rel="shortcut icon" type="image/x-icon" href="~/image/favicon.ico">
@@ -20,7 +21,7 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-lg-3 ">
-                            <a href="index.html" class="site-brand">
+                            <a asp-controller="Home" asp-action="Index" class="site-brand">
                                 <img src="~/image/logo.png" alt="">
                             </a>
                         </div>
@@ -39,7 +40,7 @@
                             <div class="main-navigation flex-lg-right">
                                 <ul class="main-menu menu-right ">
                                     <li class="menu-item">
-                                        <a href="javascript:void(0)">Home</a>
+                                        <a asp-controller="Home" asp-action="Index">Home</a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="javascript:void(0)">shop</a>
@@ -51,7 +52,7 @@
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="javascript:void(0)">Blog</a>
+                                        <a asp-action="Index" asp-controller="Blog">Blog</a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="contact.html">Contact</a>
@@ -197,8 +198,15 @@
                             <div class="main-navigation flex-lg-right">
                                 <div class="cart-widget">
                                     <div class="login-block">
-                                        <a href="login-register.html" class="font-weight-bold">Login</a> <br>
-                                        <span>or</span><a href="login-register.html">Register</a>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <a asp-action="MyAccount" asp-controller="Account" class="font-weight-bold">@User.Identity.Name</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="Login" asp-controller="Auth" class="font-weight-bold">Login</a> <br>
+                                            <span>or</span><a asp-action="Register" asp-controller="Auth">Register</a>
+                                        }
                                     </div>
                                     <div class="cart-block">
                                         <div class="cart-total">

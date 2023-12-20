@@ -45,5 +45,10 @@ namespace nov30task.Controllers
             // HttpContext.Response.Cookies.Delete(key);
         }*/
 
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using nov30task.Context;
 using nov30task.Models;
@@ -7,7 +9,8 @@ using nov30task.ViewModels.CategoriesVM;
 namespace nov30task.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoriesController : Controller
+    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
+	public class CategoriesController : Controller
     {
         PustokDbContext Db { get; }
 
@@ -18,8 +21,9 @@ namespace nov30task.Areas.Admin.Controllers
 
         // Index:
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
-        {
+		{
             var CaregoriesFromDb = await Db.Categories.Select(categoryFromDb => new CategoryListItemVM
             {
                 Id = categoryFromDb.Id,
@@ -34,6 +38,7 @@ namespace nov30task.Areas.Admin.Controllers
         // Get
         public IActionResult Create()
         {
+            ViewBag.ParentCategories = new SelectList(Db.Categories, "Id", "Name");
             return View();
         }
 
@@ -41,7 +46,11 @@ namespace nov30task.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryCreateVM categoryCreateViewModel)
         {
-            if (!ModelState.IsValid) return View(categoryCreateViewModel);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ParentCategories = new SelectList(Db.Categories, "Id", "Name");
+                return View(categoryCreateViewModel);
+            }
 
             if (await Db.Categories.AnyAsync(s => s.Name == categoryCreateViewModel.Name))
             {
@@ -49,7 +58,11 @@ namespace nov30task.Areas.Admin.Controllers
                 return View(categoryCreateViewModel);
             }
 
-            Category categoryCreate = new() {Name = categoryCreateViewModel.Name};
+            Category categoryCreate = new()
+            {
+                Name = categoryCreateViewModel.Name,
+                ParentCategoryId = (categoryCreateViewModel.ParentCategoryId != 0) ? categoryCreateViewModel.ParentCategoryId : 1
+            };
 
             await Db.Categories.AddAsync(categoryCreate);
             await Db.SaveChangesAsync();
@@ -63,12 +76,18 @@ namespace nov30task.Areas.Admin.Controllers
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null || id <= 0) return BadRequest();
+            
+            ViewBag.ParentCategories = new SelectList(Db.Categories, "Id", "Name");
 
             var categoryFromDb = await Db.Categories.FindAsync(id);
 
             if (categoryFromDb == null) return NotFound();
 
-            CategoryUpdateVM categoryUpdateViewModel = new() { Name = categoryFromDb.Name };
+            CategoryUpdateVM categoryUpdateViewModel = new()
+            {
+                Name = categoryFromDb.Name,
+                ParentCategoryId = (categoryFromDb.ParentCategoryId != 0) ? categoryFromDb.ParentCategoryId : 1
+            };
 
             return View(categoryUpdateViewModel);
         }
@@ -86,6 +105,7 @@ namespace nov30task.Areas.Admin.Controllers
             if (categoryFromDb == null) return NotFound();
 
             categoryFromDb.Name = categoryUpdateViewModel.Name;
+            categoryFromDb.ParentCategoryId = (categoryUpdateViewModel.ParentCategoryId != 0) ? categoryUpdateViewModel.ParentCategoryId : 1;
 
             await Db.SaveChangesAsync();
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using nov30task.Context;
@@ -10,7 +11,8 @@ using NuGet.Protocol.Plugins;
 namespace nov30task.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BlogsController : Controller
+    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
+	public class BlogsController : Controller
     {
         PustokDbContext Db { get; }
 
@@ -20,7 +22,7 @@ namespace nov30task.Areas.Admin.Controllers
         }
 
         // Index:
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var blogsFromDb = await Db.Blogs.Select(blogFromDb => new BlogListItemVM
