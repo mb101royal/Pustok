@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="zxx">
 
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +11,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="~/css/plugins.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="~/css/main.css" />
     <link rel="shortcut icon" type="image/x-icon" href="~/image/favicon.ico">
+    @RenderSection("styles", false)
 </head>
 
 <body>
@@ -48,7 +48,8 @@
                                         <a href="javascript:void(0)">Products</a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="javascript:void(0)">Pages
+                                        <a href="javascript:void(0)">
+                                            Pages
                                         </a>
                                     </li>
                                     <li class="menu-item">
@@ -205,7 +206,8 @@
                                         else
                                         {
                                             <a asp-action="Login" asp-controller="Auth" class="font-weight-bold">Login</a> <br>
-                                            <span>or</span><a asp-action="Register" asp-controller="Auth">Register</a>
+                                            <span>or</span>
+                                            <a asp-action="Register" asp-controller="Auth">Register</a>
                                         }
                                     </div>
                                     <div class="cart-block">
@@ -259,7 +261,7 @@
             </div>
         </div>
 
-            @RenderBody()
+        @RenderBody()
         <!--=================================
             Footer Area
             ===================================== -->
@@ -362,7 +364,6 @@
         <script src="~/js/plugins.js"></script>
         <script src="~/js/ajax-mail.js"></script>
         <script src="~/js/custom.js"></script>
+        @RenderSection("scripts", false)
 </body>
-
-
 </html>

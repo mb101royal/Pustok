@@ -80,6 +80,8 @@ namespace nov30task.Controllers
 
             AppUser user;
 
+            if (!ModelState.IsValid) return View(loginVM);
+
             if (loginVM.UsernameOrEmail.Contains("@")) user = await _userManager.FindByEmailAsync(loginVM.UsernameOrEmail);
             else user = await _userManager.FindByNameAsync(loginVM.UsernameOrEmail);
 

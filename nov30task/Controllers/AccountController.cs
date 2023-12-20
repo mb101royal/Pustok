@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using nov30task.Helpers;
 
 namespace nov30task.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, Admin, Moderator, Member")]
     public class AccountController : Controller
     {
         public IActionResult MyAccount()
@@ -9,11 +12,17 @@ namespace nov30task.Controllers
             return View();
         }
 
-        /*public IActionResult Orders()
+        public IActionResult Details()
         {
             return View();
         }
 
+        /*
+        public IActionResult Orders()
+        {
+            return View();
+        }
+        
         public IActionResult Download()
         {
             return View();
@@ -29,10 +38,7 @@ namespace nov30task.Controllers
             return View();
         }
 
-        public IActionResult AccountDetail()
-        {
-            return View();
-        }
+        
         public IActionResult Logout()
         {
             return View();

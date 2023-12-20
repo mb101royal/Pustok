@@ -1,115 +1,99 @@
 ﻿@model LoginVM
-@{
-    Layout = null;
-}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SB Admin 2 - Login</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="~/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="~/admin/css/sb-admin-2.min.css" rel="stylesheet">
+@section styles {
     <style>
-        li {
-            list-style-type: none;
-        }
-
-        ul {
-            padding-left: 10px;
+        div.text-danger, span.text-danger{
+            padding: 5px;
         }
     </style>
+}
 
-</head>
-
-<body class="bg-gradient-primary">
-
+<section class="breadcrumb-section">
+    <h2 class="sr-only">Site Breadcrumb</h2>
     <div class="container">
-
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-
-            <div class="col-xl-10 col-lg-12 col-md-9">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div>
-                                    <form class="user" method="post">
-                                        <div class="form-group">
-                                            <input class="form-control form-control-user" placeholder="Email Address" asp-for="UsernameOrEmail">
-                                            <span class="text-danger" asp-validation-for="UsernameOrEmail"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control form-control-user" placeholder="Password" asp-for="Password">
-                                            <span class="text-danger" asp-validation-for="Password"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input class="custom-control-input" asp-for="RememberMe">
-                                                <label class="custom-control-label" asp-for="RememberMe">Remember Me</label>
-                                            </div>
-                                        </div>
-                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                        <button class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </button>
-                                        <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
-                                        </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a>
-                                    </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" asp-action="Register">Create an Account!</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="breadcrumb-contents">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+                    <li class="breadcrumb-item active">Login</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+<!--=============================================
+=            Login Register page content         =
+=============================================-->
+<main class="page-section inner-page-sec-padding-bottom">
+    <div class="container">
+        <form method="post">
+            <div class="login-form">
+                <h4 class="login-title">Returning Customer</h4>
+                <p><span class="font-weight-bold">I am a returning customer</span></p>
+                <div class="row">
+                    <div class="col-md-12 col-12 mb--15">
+                        <input class="mb-0 form-control" placeholder="Username or Email Address" asp-for="UsernameOrEmail">
+                        <span class="text-danger" asp-validation-for="UsernameOrEmail"></span>
+                    </div>
+                    <div class="col-12 mb--20">
+                        <input class="mb-0 form-control" placeholder="Password" asp-for="Password">
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                    <div class="col-md-12">
+                        <button class="btn btn-outlined">Login</button>
                     </div>
                 </div>
-
             </div>
-
-        </div>
-
+        </form>
     </div>
+</main>
+<!--=================================
+  Brands Slider
+===================================== -->
+<section class="section-margin">
+    <h2 class="sr-only">Brand Slider</h2>
+    <div class="container">
+        <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
+                                            "autoplay": true,
+                                            "autoplaySpeed": 8000,
+                                            "slidesToShow": 6
+                                            }' data-slick-responsive='[
+                {"breakpoint":992, "settings": {"slidesToShow": 4} },
+                {"breakpoint":768, "settings": {"slidesToShow": 3} },
+                {"breakpoint":575, "settings": {"slidesToShow": 3} },
+                {"breakpoint":480, "settings": {"slidesToShow": 2} },
+                {"breakpoint":320, "settings": {"slidesToShow": 1} }
+            ]'>
+            <div class="single-slide">
+                <img src="image/others/brand-1.jpg" alt="">
+            </div>
+            <div class="single-slide">
+                <img src="image/others/brand-2.jpg" alt="">
+            </div>
+            <div class="single-slide">
+                <img src="image/others/brand-3.jpg" alt="">
+            </div>
+            <div class="single-slide">
+                <img src="image/others/brand-4.jpg" alt="">
+            </div>
+            <div class="single-slide">
+                <img src="image/others/brand-5.jpg" alt="">
+            </div>
+            <div class="single-slide">
+                <img src="image/others/brand-6.jpg" alt="">
+            </div>
+            <div class="single-slide">
+                <img src="image/others/brand-1.jpg" alt="">
+            </div>
+            <div class="single-slide">
+                <img src="image/others/brand-2.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="~/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="~/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="~/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="~/admin/js/sb-admin-2.min.js"></script>
-
-</body>
-
-</html>
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}

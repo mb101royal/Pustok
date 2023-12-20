@@ -1,0 +1,46 @@
+﻿@model RegisterVM
+@{
+    ViewData["Title"] = "Details";
+}
+
+<main class="page-section inner-page-sec-padding-bottom">
+    <div class="container">
+        <div class="login-form">
+            <h3 class="login-title">Account Details</h3>
+            <div class="account-details-form">
+                <form method="post">
+                    <div class="col-lg-6 col-12  mb--30">
+                        <input placeholder="Fullname" asp-for="Fullname">
+                        <span class="text-danger" asp-validation-for="Fullname"></span>
+                    </div>
+                    <div class="col-12  mb--30">
+                        <input placeholder="Username" asp-for="Username">
+                        <span class="text-danger" asp-validation-for="Username"></span>
+                    </div>
+                    <div class="col-12  mb--30">
+                        <input placeholder="Email" asp-for="Email">
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                    <div class="col-12  mb--30">
+                        <h4 class="login-title">Password change</h4>
+                    </div>
+                    @* <div class="col-12  mb--30">
+                    <input placeholder="Current Password" asp-for="CurrentPassword">
+                    <span class="text-danger" asp-validation-for="CurrentPassword"></span>
+                    </div> *@
+                    <div class="col-lg-6 col-12  mb--30">
+                        <input placeholder="New Password" asp-for="Password">
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                    <div class="col-lg-6 col-12  mb--30">
+                        <input placeholder="Confirm New Password" asp-for="ConfirmPassword">
+                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn--primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
