@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using nov30task.ExternalServices.Implements;
+using nov30task.ExternalServices.Interfaces;
+using nov30task.Hellpers;
 using nov30task.Helpers;
 using nov30task.Models;
 using nov30task.ViewModels.AuthVM;
@@ -13,18 +16,28 @@ namespace nov30task.Controllers
         SignInManager<AppUser> _signInManager { get; }
         UserManager<AppUser> _userManager { get; }
         RoleManager<IdentityRole> _roleManager { get; }
+        IEmailService _emailService { get; }
 
-		public AuthController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
-		{
-			_signInManager = signInManager;
-			_userManager = userManager;
-			_roleManager = roleManager;
-		}
+        public AuthController(SignInManager<AppUser> signInManager,
+            UserManager<AppUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IEmailService emailService)
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _emailService = emailService;
+        }
 
-		// Register:
+        /*public IActionResult SendMail()
+        {
+            _emailService.Send();
+        }*/
 
-		// Get
-		public IActionResult Register()
+        // Register:
+
+        // Get
+        public IActionResult Register()
         {
             return View();
         }
@@ -59,7 +72,48 @@ namespace nov30task.Controllers
                 return View(registerVM);
 			}
 
+            await _sendConfirmationEmail(user);
+
             return View();
+        }
+
+        // Email:
+
+        public async Task<IActionResult> SendConfirmationEmail(string username)
+        {
+            await _sendConfirmationEmail(await _userManager.FindByNameAsync(username));
+            return Content("Email sent.");
+        }
+
+        async Task _sendConfirmationEmail(AppUser user)
+        {
+            string userToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var link = Url.Action("EmailConfirmation", "Auth", new
+            {
+                userToken = userToken,
+                username = user.UserName
+            }, Request.Scheme);
+
+            string emailConfirmationPage = Directory.GetCurrentDirectory() + "/wwwroot/emailconfirmtemplate.html";
+
+            using StreamReader reader = new(emailConfirmationPage);
+            string template = reader.ReadToEnd()
+                .Replace("[[[FullName]]]", user.FullName)
+                .Replace("[[[link]]]", link);
+            /*template = template.Replace("[[[FullName]]]", user.FullName);
+            template = template.Replace("[[[link]]]", link);*/
+
+            _emailService.Send(user.Email, "Confirm Email", template);
+        }
+
+        public async Task<IActionResult> EmailConfirmation(string userToken, string username)
+        {
+            var emailConfirmationResult = await _userManager.ConfirmEmailAsync(await _userManager.FindByNameAsync(username), userToken);
+
+            if (emailConfirmationResult.Succeeded) return Content("Well Done! Bye C:");
+
+            return Problem();
+
         }
 
         // Login:
@@ -85,8 +139,6 @@ namespace nov30task.Controllers
             if (loginVM.UsernameOrEmail.Contains("@")) user = await _userManager.FindByEmailAsync(loginVM.UsernameOrEmail);
             else user = await _userManager.FindByNameAsync(loginVM.UsernameOrEmail);
 
-            // Note: Db-da register olmus user olmasa exception verir.
-
             if (user == null)
             {
                 ModelState.AddModelError("", "Password or Username is incorrect.");
@@ -97,8 +149,12 @@ namespace nov30task.Controllers
 
             if (!userSignInResult.Succeeded)
             {
+                var param = new { username = user.UserName };
+
+
                 if (userSignInResult.IsLockedOut) ModelState.AddModelError("", $"Too many attempts. Wait until {DateTime.Parse(user.LockoutEnd.ToString()):HH:mm}");
-                else ModelState.AddModelError("", "Password or Email is incorrect.");
+                else if (!user.EmailConfirmed) ViewBag.Link = $"Confirm your email first -> <a href='{Url.Action("SendConfirmationEmail", "Auth", param)}'>Confirm email</a>";
+                else ModelState.AddModelError("", "Password or Username is incorrect.");
 
                 return View(loginVM);
             }

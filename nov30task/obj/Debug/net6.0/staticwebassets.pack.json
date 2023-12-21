@@ -7433,6 +7433,14 @@
       "PackagePath": "staticwebassets\\css\\plugins.css"
     },
     {
+      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\emailconfirmedtemplate.html",
+      "PackagePath": "staticwebassets\\emailconfirmedtemplate.html"
+    },
+    {
+      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\emailconfirmtemplate.html",
+      "PackagePath": "staticwebassets\\emailconfirmtemplate.html"
+    },
+    {
       "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\fonts\\Ionicons28b5.eot",
       "PackagePath": "staticwebassets\\fonts\\Ionicons28b5.eot"
     },

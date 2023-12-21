@@ -2,7 +2,7 @@
 
 @section styles {
     <style>
-        div.text-danger, span.text-danger{
+        div.text-danger, span.text-danger {
             padding: 5px;
         }
     </style>
@@ -39,6 +39,10 @@
                         <input class="mb-0 form-control" placeholder="Password" asp-for="Password">
                         <span class="text-danger" asp-validation-for="Password"></span>
                     </div>
+                    @if (ViewBag.Link != null)
+                    {
+                        <span class="text-danger">@Html.Raw(ViewBag.Link)</span>
+                    }
                     <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                     <div class="col-md-12">
                         <button class="btn btn-outlined">Login</button>

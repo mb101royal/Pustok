@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ykgUA49rtTABQ8ogTzvLYDgnvSSFLhd6QisuvCyZXBU=",
+  "Hash": "APrItqXQnADlZNH0f9wzLfD3TPbVbHZSZyRqmaEJphM=",
   "Source": "nov30task",
   "BasePath": "_content/nov30task",
   "Mode": "Default",
@@ -31618,6 +31618,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\plugins.css"
+    },
+    {
+      "Identity": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\emailconfirmedtemplate.html",
+      "SourceId": "nov30task",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\",
+      "BasePath": "_content/nov30task",
+      "RelativePath": "emailconfirmedtemplate.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\emailconfirmedtemplate.html"
+    },
+    {
+      "Identity": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\emailconfirmtemplate.html",
+      "SourceId": "nov30task",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\",
+      "BasePath": "_content/nov30task",
+      "RelativePath": "emailconfirmtemplate.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\emailconfirmtemplate.html"
     },
     {
       "Identity": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\fonts\\fa-brands-400.eot",
