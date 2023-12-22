@@ -11,6 +11,7 @@ namespace nov30task.ViewModels.BlogsVM
         public string? Description { get; set; }
         public int? AuthorId { get; set; }
         public Author? Author { get; set; }
+        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
         public bool IsDeleted { get; set; } = false;
     }
 }

@@ -9,7 +9,7 @@ using nov30task.ViewModels.TagsVM;
 namespace nov30task.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
+    /*[Authorize(Roles = "SuperAdmin, Admin, Moderator")]*/
 	public class TagsController : Controller
     {
         PustokDbContext Db { get; }

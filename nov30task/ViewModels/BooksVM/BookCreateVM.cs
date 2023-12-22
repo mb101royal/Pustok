@@ -18,8 +18,11 @@ namespace nov30task.ViewModels.BooksVM
         public decimal CostPrice { get; set; }
         [Range(0, 100)]
         public float Discount { get; set; }
-        public ushort Quantity { get; set; }
-        public string? ImageUrl { get; set; }
+        public ushort Quantity  { get; set; }
+        //public string ImageUrl{ get; set; }
+
+        [Required(ErrorMessage = "Please select file")]
+        public IFormFile? ImageFile { get; set; }
         public int CategoryId { get; set; }
     }
 }

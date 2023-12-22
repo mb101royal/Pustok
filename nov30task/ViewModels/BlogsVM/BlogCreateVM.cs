@@ -10,6 +10,7 @@ namespace nov30task.ViewModels.BlogsVM
         [MaxLength(256)]
         public string? Description { get; set; }
         public int AuthorId { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
         public Author? Author { get; set; }
         public bool IsDeleted { get; set; } = false;
     }

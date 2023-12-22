@@ -9,7 +9,7 @@ using nov30task.ViewModels.CategoriesVM;
 namespace nov30task.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
+    //[Authorize(Roles = "SuperAdmin, Admin, Moderator")]
 	public class CategoriesController : Controller
     {
         PustokDbContext Db { get; }

@@ -61,98 +61,6 @@
       "PackagePath": "staticwebassets\\Admin\\js\\sb-admin-2.min.js"
     },
     {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_buttons.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_buttons.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_cards.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_cards.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_charts.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_charts.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_dropdowns.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_dropdowns.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_error.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_error.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_footer.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_footer.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_global.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_global.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_login.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_login.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_mixins.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_mixins.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_navs.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_navs.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_utilities.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_utilities.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\_variables.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\_variables.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\navs\\_global.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\navs\\_global.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\navs\\_sidebar.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\navs\\_sidebar.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\navs\\_topbar.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\navs\\_topbar.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\sb-admin-2.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\sb-admin-2.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\utilities\\_animation.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\utilities\\_animation.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\utilities\\_background.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\utilities\\_background.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\utilities\\_border.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\utilities\\_border.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\utilities\\_display.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\utilities\\_display.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\utilities\\_progress.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\utilities\\_progress.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\utilities\\_rotate.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\utilities\\_rotate.scss"
-    },
-    {
-      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\scss\\utilities\\_text.scss",
-      "PackagePath": "staticwebassets\\Admin\\scss\\utilities\\_text.scss"
-    },
-    {
       "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\Admin\\vendor\\bootstrap\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\Admin\\vendor\\bootstrap\\js\\bootstrap.bundle.js"
     },
@@ -7611,6 +7519,10 @@
     {
       "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\image\\bg-images\\promo-banner-with-text.jpg",
       "PackagePath": "staticwebassets\\image\\bg-images\\promo-banner-with-text.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\image\\books\\Microsoft.AspNetCore.Http.FormFile.png",
+      "PackagePath": "staticwebassets\\image\\books\\Microsoft.AspNetCore.Http.FormFile.png"
     },
     {
       "Id": "C:\\Users\\Birinci Novbe\\Desktop\\PustokTask\\nov30task\\wwwroot\\image\\books\\wp8018065.jpg",

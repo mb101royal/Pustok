@@ -11,7 +11,7 @@ using NuGet.Protocol.Plugins;
 namespace nov30task.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
+    /*[Authorize(Roles = "SuperAdmin, Admin, Moderator")]*/
 	public class BlogsController : Controller
     {
         PustokDbContext Db { get; }
@@ -22,7 +22,6 @@ namespace nov30task.Areas.Admin.Controllers
         }
 
         // Index:
-        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var blogsFromDb = await Db.Blogs.Select(blogFromDb => new BlogListItemVM
@@ -31,6 +30,8 @@ namespace nov30task.Areas.Admin.Controllers
                 Title = blogFromDb.Title,
                 Author = blogFromDb.Author,
                 Description = blogFromDb.Description,
+                CreatedAt = blogFromDb.CreatedAt,
+                UpdatedAt = blogFromDb.UpdatedAt,
             }).ToListAsync();
 
             return View(blogsFromDb);
@@ -60,6 +61,7 @@ namespace nov30task.Areas.Admin.Controllers
                 Title = vm.Title,
                 Description = vm.Description,
                 AuthorId = vm.AuthorId >= 1 ? vm.AuthorId : null,
+                CreatedAt = vm.CreatedAt,
             };
 
             await Db.Blogs.AddAsync(blogCreate);
@@ -112,7 +114,7 @@ namespace nov30task.Areas.Admin.Controllers
             blogFromDb.AuthorId = blogUpdateViewModel.AuthorId;
             blogFromDb.Description = blogUpdateViewModel.Description;
             blogFromDb.Title = blogUpdateViewModel.Title;
-
+            blogFromDb.UpdatedAt = blogUpdateViewModel.UpdatedAt;
 
             await Db.SaveChangesAsync();
 

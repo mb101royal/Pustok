@@ -10,7 +10,7 @@ using nov30task.ViewModels.SlidersVM;
 namespace nov30task.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
+    //[Authorize(Roles = "SuperAdmin, Admin, Moderator")]
 	public class BooksController : Controller
 	{
         PustokDbContext Db { get; }
@@ -56,25 +56,40 @@ namespace nov30task.Areas.Admin.Controllers
 
         // Post
         [HttpPost]
-        public async Task<IActionResult> Create(BookCreateVM bookCreateViewModel)
+        public async Task<IActionResult> Create(BookCreateVM bookCreateVM)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = new SelectList(Db.Categories, "Id", "Name");
-                return View(bookCreateViewModel);
+                return View(bookCreateVM);
+            }
+
+            string path = Path.Combine("~/", "image/books");
+
+            FileInfo fileInfo = new(bookCreateVM.ImageFile.FileName);
+            
+            string fileName = bookCreateVM.ImageFile + fileInfo.Extension;
+
+            /*string randomName = */
+
+            string fileNameWithPath = Path.Combine(path, fileName);
+
+            using (FileStream stream = new(fileNameWithPath, FileMode.Create))
+            {
+                bookCreateVM.ImageFile.CopyTo(stream);
             }
 
             Book bookCreate = new()
             {
-                Name = bookCreateViewModel.Name,
-                About = bookCreateViewModel.About,
-                CostPrice = bookCreateViewModel.CostPrice,
-                Description = bookCreateViewModel.Description,
-                Discount = bookCreateViewModel.Discount,
-                ImageUrl = bookCreateViewModel.ImageUrl,
-                Quantity = bookCreateViewModel.Quantity,
-                SellPrice = bookCreateViewModel.SellPrice,
-                CategoryId = bookCreateViewModel.CategoryId,
+                Name = bookCreateVM.Name,
+                About = bookCreateVM.About,
+                CostPrice = bookCreateVM.CostPrice,
+                Description = bookCreateVM.Description,
+                Discount = bookCreateVM.Discount,
+                ImageUrl = fileName,
+                Quantity = bookCreateVM.Quantity,
+                SellPrice = bookCreateVM.SellPrice,
+                CategoryId = bookCreateVM.CategoryId,
             };
 
             await Db.Books.AddAsync(bookCreate);
